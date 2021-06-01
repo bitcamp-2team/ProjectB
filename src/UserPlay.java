@@ -15,7 +15,7 @@ public class UserPlay implements User {
 	static ArrayList<UserVo> userList = new ArrayList<>(); // 유저 리스트
 	
 	public static void adminUser() {
-		UserVo adminUser = new UserVo("admin", "1234", "1234", "admin");
+		UserVo adminUser = new UserVo("admin", "1234", "admin", "010-1234-1234"); //관리자 계정
 		userList.add(adminUser);
 	}
 	
