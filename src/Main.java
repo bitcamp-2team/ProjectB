@@ -22,11 +22,11 @@ public class Main {
 			String input=sc.next();
 			switch(input) {
 				case "1":{
-					BookPlay bookPlay = new BookPlay();
+					BookPlay usePlay = new BookPlay();
 					break;
 				}
 				case "2":{
-					UserPlay userPlay = new UserPlay();
+					UserPlay bookPlay = new UserPlay();
 					break;
 				}
 				case "0":{
