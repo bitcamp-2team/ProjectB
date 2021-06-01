@@ -8,6 +8,7 @@ public class BookVo {
 	//기간 추후 추가 협의
 	public String ho;
 	public String ho2;
+	public String ho3;
 	
 	/** 생성자 알맞게 수정하세요*/
 	public BookVo(String bTitle, String bNum, String bAuthor, String bPublisher, int bStock) {
