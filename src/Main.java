@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -11,22 +10,18 @@ public class Main {
 		final String MENU="[MENU]"; // 메뉴 앞에
 		final String PROMPT=">>";  // 입력창 앞에 
  
-		/**공통 저장소입니다. main에서 공토 관리되는 확인이 필요합니다. 안 되면 공유 부탁드립니다 */
-		ArrayList<BookVo> BookList = new ArrayList<>(); // 책 리스트
-		ArrayList<UserVo> UserList = new ArrayList<>(); // 유저 리스트
-		
-		
 		do {
 			System.out.println(MENU+"1.일반회원  2.사서  0.종료");
-			System.out.print(">>");
+			System.out.print(PROMPT);
 			String input=sc.next();
 			switch(input) {
 				case "1":{
-					BookPlay usePlay = new BookPlay();
+					UserPlay userPlay = new UserPlay();
+					userPlay.mainMenu(); //작동 확인 시 삭제 예정 
 					break;
 				}
 				case "2":{
-					UserPlay bookPlay = new UserPlay();
+					BookPlay bookPlay = new BookPlay();
 					break;
 				}
 				case "0":{
