@@ -9,6 +9,7 @@ public class BookVo {
 	public String ho;
 	public String ho2;
 	public String ho3;
+	public String ho4;
 	
 	/** 생성자 알맞게 수정하세요*/
 	public BookVo(String bTitle, String bNum, String bAuthor, String bPublisher, int bStock) {
