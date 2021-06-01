@@ -9,6 +9,7 @@ public class UserPlay implements User {
 	 final String SUCCESS = "[성공] ";
 	 final String FAILE = "[실패] ";
 	 final String MENU="[MENU]"; // 메뉴 앞에
+	 final String PROMPT=">>"; 
 
 	Scanner sc = new Scanner(System.in);
 
@@ -80,7 +81,7 @@ public class UserPlay implements User {
 	private int infoID(UserVo inputInfo) {
 		ID: do {// id입력
 			System.out.println("[Step.1]ID를 입력해주세요. (0.메뉴로 돌아가기)");
-			System.out.println("ID>> ");
+			System.out.print("ID>> ");
 			String inputId = sc.next().trim();
 			if (inputId.equals("0")) {
 				return -1;
@@ -110,7 +111,7 @@ public class UserPlay implements User {
 	private void infoPw(UserVo inputInfo) {
 		do {// pw 입력
 			System.out.println("[Step.2]PW를 입력해주세요.");
-			System.out.println("PW>> ");
+			System.out.print("PW>> ");
 			String inputPw = sc.next().trim();
 			inputInfo.setPw(inputPw);
 			if (checkPw(inputPw)) {
@@ -127,7 +128,7 @@ public class UserPlay implements User {
 	private void infoCheckPw(UserVo inputInfo) {
 		do { // pw 확인
 			System.out.println("[Step.3]PW를 확인합니다. PW를 입력해주세요.(0.[Step.2]PW재설정 하기)");
-			System.out.println("PW>> ");
+			System.out.print("PW>> ");
 			String inputPw = sc.next().trim();
 			if (inputPw.equals("0")) {
 				infoPw(inputInfo);
@@ -161,7 +162,7 @@ public class UserPlay implements User {
 
 	private int infoName(UserVo inputInfo) {
 		System.out.println("[Step.4]이름을 입력해주세요.(0.메뉴로 돌아가기)");
-		System.out.println("NAME>> ");
+		System.out.print("NAME>> ");
 		String inputName = sc.next().trim();
 		inputInfo.setName(inputName);
 		if (inputName.equals("0")) {
@@ -175,7 +176,7 @@ public class UserPlay implements User {
 	/** ----------------------------전화번호 추가 사항 --------------------------------- */
 	private int infoPhoneNum(UserVo inputInfo) {
 		System.out.println("[Step.5]전화번호를 입력해주세요.(0.메뉴로 돌아가기)");
-		System.out.println("PhoneNumber>> ");
+		System.out.print("PhoneNumber>> ");
 		String inputPhoneNum = sc.next().trim();
 		inputInfo.setPhoneNum(inputPhoneNum);
 		if (inputPhoneNum.equals("0")) {
@@ -194,7 +195,7 @@ public class UserPlay implements User {
 		System.out.println("[자동가입 방지]아래 숫자와 동일하게 입력하세요.");
 		do {
 			int randomNum = (int) (Math.random() * 100000) + 111111;
-			System.out.println(randomNum + " >>");
+			System.out.print(randomNum + PROMPT);
 			int inputPw = sc.nextInt();
 			if (randomNum == inputPw) {
 				System.out.println(SUCCESS + "일치합니다.");
