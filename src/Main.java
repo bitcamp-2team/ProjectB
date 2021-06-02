@@ -22,6 +22,7 @@ public class Main {
 				}
 				case "2":{
 					BookPlay bookPlay = new BookPlay();
+					bookPlay.searchMenu();
 					break;
 				}
 				case "0":{

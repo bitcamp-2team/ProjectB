@@ -50,9 +50,6 @@ public class UserPlay implements User {
 			}
 		} while (true);
 	}
-	/** ----------------임시 사용 (삭제 예정)-------------------------*/
-	
-	
 	@Override
 	public void join() {
 		UserVo paper = new UserVo();  //회원가입 작성지
