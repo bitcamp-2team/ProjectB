@@ -72,12 +72,12 @@ public class BookPlay implements Book {
 			Calendar cal =Calendar.getInstance();
 		     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	  System.out.println("반납할 책의 번호를 입력하세요");
-	  String s = sc.nextLine();
-	  int idx = findListIndex(s);
+	  String bNum = sc.nextLine();
+	  int idx = findListIndex(bNum);
 	  if (idx == -1)
 	   System.out.println("등록되지 않은 번호입니다.");
 	  else {
-	   if (booklist.get(idx).isLoaned()) {
+	   if (booklist.get(idx).isloaned()) {
 	    System.out.println("반납 완료.");
 	    cal.add(Calendar.DATE,7);
 	    System.out.println("반납일 : "+df.format(cal.getTime()));
