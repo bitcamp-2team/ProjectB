@@ -9,7 +9,7 @@ public class Main {
 	final static String PROMPT = ">> ";  //입력창 앞에 
 	
 	static UserPlay userPlay = new UserPlay();
-	BookPlay bookPlay = new BookPlay();
+	static BookPlay bookPlay = new BookPlay();
 	
 	public static void main(String[] args) { //초기화면 출력 
 		do {
@@ -20,12 +20,10 @@ public class Main {
 				case "1" : {				
 					membersMenu(); //일반회원메뉴 출력 메소드 호출
 					break;
-				}
+        }
 				case "2":{
-					BookPlay bookPlay = new BookPlay();
-					bookPlay.searchMenu();
-					break;
-          
+					//사서메뉴 출력 메소드 호출
+					break;      
 				}
 				case "0" : {
 					sc.close();
@@ -107,7 +105,12 @@ public class Main {
 	} //myPage(마이페이지)메소드 종료
 		
 	
-//사서쪽 메뉴 아직 안함...	
+// 사서쪽 메뉴 아직 안함...	
+//	초기화면에서 2.사서 선택하면
+//	사서 로그인!!!!
+//	로그인 하면 사서메뉴 나옴
+//	사서메뉴 1. 도서 검색  2. 도서 등록/삭제  3. 대여/반납  4.사용종료
+//	4.사용종료하면 초기화면으로 가야 함
 
 	
 	
