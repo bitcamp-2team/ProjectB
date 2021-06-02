@@ -1,6 +1,9 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+
 
 public class UserPlay implements User {
 
@@ -205,6 +208,30 @@ public class UserPlay implements User {
 
 	@Override
 	public void logIn() {
+		System.out.println("\n유저 로그인...");
+		String id, pw;
+
+		try {
+			System.out.print("아이디 ? ");
+			id = sc.next().trim();			//회원가입 코드에 next().trim()을 사용하여 통일하였음
+
+			System.out.print("패스워드 ? ");
+			pw = sc.next().trim();
+
+			UserVO vo = readUser(id);
+
+			if (vo != null) { // 일치하는 id가 있으면
+				if (vo.getPw().equals(pw)) { // pw를 입력한 pw와 비교해라
+					uservo = vo; // 일치하면 현재 로그인 상태로 입력
+					System.out.println("로그인을 성공하였습니다.");
+					return;
+				}
+			} else {  //pw가 일치하지 않으면 
+				System.out.println("아이디 또는 패스워드가 일치하지 않습니다.\n");
+			} // logIn종료
+		}catch (IOException e) {
+			System.out.println(e.toString());
+		}
 	}
 
 	@Override
@@ -218,4 +245,24 @@ public class UserPlay implements User {
 	@Override
 	public void withdrawal() {
 	}
+	
+	public void managerLogin() {
+		Scanner sc = new Scanner(System.in);
+		int secret = 1234; // 사서 보안코드
+
+		System.out.println("\n사서 로그인");
+		
+			
+
+			System.out.println("사서 보안코드 4자리를 입력하세요.");
+			if (secret != sc.nextInt()) {
+				System.out.println("코드가 일치하지 않아 프로그램을 종료합니다.");
+				sc.close();
+				System.exit(0);
+			} else {
+				/*사서 메뉴 출력
+				*/
+			}
+	
+	} //사서 로그인 끝
 }//UserPlay class 끝 
