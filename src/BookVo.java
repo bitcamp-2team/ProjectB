@@ -24,6 +24,7 @@ public class BookVo {
 		this.bAuthor = bAuthor;
 		this.bPublisher = bPublisher;
 		this.bStock = bStock;
+		this.loaned=loaned;
 	}
 	public BookVo() {};  //기본생성자
 	
