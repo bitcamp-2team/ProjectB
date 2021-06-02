@@ -165,4 +165,20 @@ public class BookPlay implements Book {
         	System.out.println("재고 : " + a.bStock);
     	}
 	}
+
+	@Override
+	public void addBook() {
+	}
+
+	@Override
+	public void deleteBook() {
+	}
+
+	@Override
+	public void rendBook() {
+	}
+
+	@Override
+	public void backBook() {
+	}
 }

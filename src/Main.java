@@ -20,7 +20,7 @@ public class Main {
 				case "1" : {				
 					membersMenu(); //일반회원메뉴 출력 메소드 호출
 					break;
-				}			
+        }
 				case "2":{
 					//사서메뉴 출력 메소드 호출
 					break;      
