@@ -42,11 +42,13 @@ public class Main {
 			String input = sc.next();
 			switch(input) {
 				case "1" : {
-					userPlay.join(); //회원가입 메소드 호출, 회원가입하면 LogInMenu페이지로 가야함
+					userPlay.join(); //회원가입 메소드 호출
+					logInMenu(); //회원가입하면 LogInMenu페이지로 가야함
 					break;
 				}
 				case "2" : {
-					userPlay.logIn(); //로그인 메소드 호출, 로그인하면 LogInMenu페이지로 가야함
+					userPlay.logIn(); //로그인 메소드 호출
+					logInMenu(); //로그인하면 LogInMenu페이지로 가야함
 					break;
 				}
 				case "0" : {
@@ -58,7 +60,7 @@ public class Main {
 	} //membersMenu(일반회원메뉴)메소드 종료
 	
 	
-	void logInMenu() { //일반회원메뉴-로그인메뉴(로그인하면 이용할 수 있는 메뉴) 출력	
+	static void logInMenu() { //일반회원메뉴-로그인메뉴(로그인하면 이용할 수 있는 메뉴) 출력	
 		do {	
 			System.out.println(MENU + "1.도서 검색  2.마이페이지  0.로그아웃");
 			System.out.print(PROMPT);
@@ -73,7 +75,8 @@ public class Main {
 					break;
 				}
 				case "0" : {
-					userPlay.logOut(); //로그아웃 메소드 호출, 로그아웃하면 membersMenu페이지로 가야 함
+					userPlay.logOut(); //로그아웃 메소드 호출
+					membersMenu(); //로그아웃하면 membersMenu페이지로 가야 함
 				}
 				default: continue;
 			}
@@ -81,7 +84,7 @@ public class Main {
 	} //logInMenu(로그인메뉴)메소드 종료
 	
 	
-	void myPage() { //일반회원메뉴-로그인메뉴-마이페이지 출력	
+	static void myPage() { //일반회원메뉴-로그인메뉴-마이페이지 출력	
 		do {	
 			System.out.println(MENU + "1.대여목록  2.회원탈퇴  0.이전 메뉴");
 			System.out.print(PROMPT);
@@ -92,7 +95,8 @@ public class Main {
 					break;
 				}
 				case "2" : {
-					userPlay.withdrawal(); //회원탈퇴 메소드 호출, 회원탈퇴하고나면 membersMenu페이지로 가야 함
+					userPlay.withdrawal(); //회원탈퇴 메소드 호출
+					membersMenu(); //회원탈퇴하고나면 membersMenu페이지로 가야 함
 					break;
 				}
 				case "0" : {
