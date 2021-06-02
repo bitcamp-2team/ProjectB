@@ -1,36 +1,116 @@
 import java.util.Scanner;
 
 public class Main {
-
-	public static void main(String[] args) {
-		
-		Scanner sc = new Scanner(System.in);
-		
-		/**공통 문구 / 예쁜디자인 있으면 변경해주세요~*/
-		final String MENU="[MENU]"; // 메뉴 앞에
-		final String PROMPT=">>";  // 입력창 앞에 
- 
+	
+	static Scanner sc = new Scanner(System.in);
+	
+	/**공통 문구 / 예쁜디자인 있으면 변경해주세요~*/
+	final static String MENU = "[MENU] "; //메뉴 앞에
+	final static String PROMPT = ">> ";  //입력창 앞에 
+	
+	static UserPlay userPlay = new UserPlay();
+	BookPlay bookPlay = new BookPlay();
+	
+	public static void main(String[] args) { //초기화면 출력 
 		do {
-			System.out.println(MENU+"1.일반회원  2.사서  0.종료");
+			System.out.println(MENU + "1.일반회원  2.사서  0.종료");
 			System.out.print(PROMPT);
-			String input=sc.next();
+			String input = sc.next();
 			switch(input) {
-				case "1":{
-					UserPlay userPlay = new UserPlay();
-					userPlay.mainMenu(); //작동 확인 시 삭제 예정 
+				case "1" : {				
+					membersMenu(); //일반회원메뉴 출력 메소드 호출
 					break;
 				}
-				case "2":{
-					BookPlay bookPlay = new BookPlay();
+				case "2" : {
+					//사서메뉴 출력 메소드 호출
 					break;
 				}
-				case "0":{
+				case "0" : {
 					sc.close();
 					System.exit(0);
 				}
 				default: continue;
 			}
-		}while(true);
+		} while(true);		
+	} //main method종료
+
+	
+	static void membersMenu() { //일반회원메뉴 출력	
+		do {	
+			System.out.println(MENU + "1.회원가입  2.로그인  0.초기메뉴");
+			System.out.print(PROMPT);
+			String input = sc.next();
+			switch(input) {
+				case "1" : {
+					userPlay.join(); //회원가입 메소드 호출, 회원가입하면 LogInMenu페이지로 가야함
+					break;
+				}
+				case "2" : {
+					userPlay.logIn(); //로그인 메소드 호출, 로그인하면 LogInMenu페이지로 가야함
+					break;
+				}
+				case "0" : {
+					return; //초기화면으로 돌아가기
+				}
+				default: continue;
+			}
+		} while(true);
+	} //membersMenu(일반회원메뉴)메소드 종료
+	
+	
+	void logInMenu() { //일반회원메뉴-로그인메뉴(로그인하면 이용할 수 있는 메뉴) 출력	
+		do {	
+			System.out.println(MENU + "1.도서 검색  2.마이페이지  0.로그아웃");
+			System.out.print(PROMPT);
+			String input = sc.next();
+			switch(input) {
+				case "1" : {
+					bookPlay.searchMenu(); //도서검색 메소드 호출
+					break;
+				}
+				case "2" : {
+					myPage(); //마이페이지 출력 메소드 호출
+					break;
+				}
+				case "0" : {
+					userPlay.logOut(); //로그아웃 메소드 호출, 로그아웃하면 membersMenu페이지로 가야 함
+				}
+				default: continue;
+			}
+		} while(true);
+	} //logInMenu(로그인메뉴)메소드 종료
+	
+	
+	void myPage() { //일반회원메뉴-로그인메뉴-마이페이지 출력	
+		do {	
+			System.out.println(MENU + "1.대여목록  2.회원탈퇴  0.이전 메뉴");
+			System.out.print(PROMPT);
+			String input = sc.next();
+			switch(input) {
+				case "1" : {
+					userPlay.viewRentalBooks(); //대여목록보기 메소드 호출
+					break;
+				}
+				case "2" : {
+					userPlay.withdrawal(); //회원탈퇴 메소드 호출, 회원탈퇴하고나면 membersMenu페이지로 가야 함
+					break;
+				}
+				case "0" : {
+					logInMenu(); //logInMenu(로그인메뉴) 메소드 호출
+					break;
+				}
+				default: continue;
+			}
+		} while(true);
+	} //myPage(마이페이지)메소드 종료
 		
-	}//main method종료
-} // main class종료
+	
+//사서쪽 메뉴 아직 안함...	
+
+	
+	
+	
+	
+	
+} //main class종료
+
