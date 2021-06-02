@@ -1,11 +1,13 @@
 import java.util.Scanner;
 
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class BookPlay implements Book {
-	 private ArrayList<Book> booklist;
+	 private ArrayList<BookVo> booklist;
+	 
 	@Override
 	public void searchMenu() {
 	}
@@ -50,8 +52,8 @@ public class BookPlay implements Book {
 	  if (idx == -1)
 	   System.out.println("등록되지 않은 번호입니다.");
 	  else {
-	   if (booklist.get(idx).isLoaned())
-	    System.out.println("대여중입니다.");
+	   if (booklist.get(idx).isLoaned()) {
+	    System.out.println("대여중입니다.");}
 	   
 	   
 	   else {
@@ -77,7 +79,7 @@ public class BookPlay implements Book {
 	  if (idx == -1)
 	   System.out.println("등록되지 않은 번호입니다.");
 	  else {
-	   if (booklist.get(idx).isloaned()) {
+	   if (booklist.get(idx).isLoaned()) {
 	    System.out.println("반납 완료.");
 	    cal.add(Calendar.DATE,7);
 	    System.out.println("반납일 : "+df.format(cal.getTime()));
