@@ -5,9 +5,9 @@ public class BookVo {
 	private String bAuthor;
 	private String bPublisher;
 	private int bStock;
-	private boolean loaned;
-	public boolean equals(String bookId) {
-		  if (this.bNum.equals(bookId))
+	private boolean loaned;  
+	public boolean equals(String bNum) {
+		  if (this.bNum.equals(bNum))
 		   return true;
 		  else
 		   return false;
