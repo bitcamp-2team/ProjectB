@@ -5,11 +5,19 @@ public class BookVo {
 	private String bAuthor;
 	private String bPublisher;
 	private int bStock;
+	private boolean loaned;
+	public boolean equals(String bookId) {
+		  if (this.bNum.equals(bookId))
+		   return true;
+		  else
+		   return false;
+		 }
+
 	//기간 추후 추가 협의
 	
 	
 	/** 생성자 알맞게 수정하세요*/
-	public BookVo(String bTitle, String bNum, String bAuthor, String bPublisher, int bStock) {
+	public BookVo(String bTitle, String bNum, String bAuthor, String bPublisher, int bStock,boolean loaned) {
 		super();
 		this.bTitle = bTitle;
 		this.bNum = bNum;
@@ -51,8 +59,11 @@ public class BookVo {
 	public void setbStock(int bStock) {
 		this.bStock = bStock;
 	}
-	
-	
-	
-	
+	 public boolean isLoaned() {
+		  return loaned;
+		 }
+
+		 public void setLoaned(boolean loaned) {
+		  this.loaned = loaned;
+		 }
 }
