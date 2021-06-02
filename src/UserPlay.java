@@ -18,6 +18,9 @@ public class UserPlay implements User {
 
 	static ArrayList<UserVo> userList = new ArrayList<>(); // 유저 리스트
 	
+	static UserVo logInUser = null;
+	
+	
 	public static void adminUser() {
 		UserVo adminUser = new UserVo("admin", "1234", "admin", "010-1234-1234"); //관리자 계정
 		userList.add(adminUser);
@@ -218,7 +221,7 @@ public class UserPlay implements User {
 			System.out.print("패스워드 ? ");
 			pw = sc.next().trim();
 
-			UserVO vo = readUser(id);
+			UserVo vo = readUser(id);
 
 			if (vo != null) { // 일치하는 id가 있으면
 				if (vo.getPw().equals(pw)) { // pw를 입력한 pw와 비교해라
