@@ -13,10 +13,10 @@ public class BookVo {
 		   return false;}
 		 }
 
-	//湲곌컙 異뷀썑 異붽� �삊�쓽
+	//기간 추후 추가 협의
 	
 	
-	/** �깮�꽦�옄 �븣留욊쾶 �닔�젙�븯�꽭�슂*/
+	/** 생성자 알맞게 수정하세요*/
 	public BookVo(String bTitle, int bNum, String bAuthor, String bPublisher, int bStock,boolean Loaned) {
 		super();
 		this.bTitle = bTitle;
@@ -27,7 +27,7 @@ public class BookVo {
 		this.Loaned=Loaned;
 		
 	}
-	public BookVo() {};  //湲곕낯�깮�꽦�옄
+	public BookVo() {};  //기본생성자
 	
 	
 	/** getter,setter */

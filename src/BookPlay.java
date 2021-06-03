@@ -1,21 +1,17 @@
 import java.util.Scanner;
-
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class BookPlay implements Book {
-	final String SUCCESS = "일치하는 도서를 출력합니다.";
-	final String FAIL = "일치하는 도서가 없습니다. 다시 입력해주세요.";
-	final String EMPTY = "등록된 도서가 없습니다.";
-	final String MENU = "\n<<<도서검색 메뉴입니다.>>>"; 
-	Scanner sc = new Scanner(System.in);
 	
-	//static ArrayList<BookVo> BookList = new ArrayList<>(); 
+	Scanner sc = new Scanner(System.in);
 	 BookVo bookVo = new BookVo();
-	   
 	 private ArrayList<BookVo> booklist;
+	
+	 @Override
+	 public void printBookMenu() {
+	 }
 	 
 	@Override
 	public void searchMenu() {
@@ -43,76 +39,11 @@ public class BookPlay implements Book {
 
 	@Override
 	public void addBook() {
-		while (true) {
-            System.out.println("책 제목 :");
-            bookVo.setbTitle(sc.nextLine());
-            System.out.println("작가: ");
-            bookVo.setbAuthor(sc.nextLine());
-            System.out.println("출판사 :");
-            bookVo.setbPublisher(sc.nextLine());
-            System.out.println("수량 :");
-            bookVo.setbStock(sc.nextInt());
- 
-            /**확인하기*/
-            System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +bookVo.getbStock());            
-            System.out.println("입력하신 사항이 모두 맞습니까?");           
-            System.out.println("[YES] 1/ [NO] 2");
-            int check = sc.nextInt();
-            
-            if (check == 1) {
-                booklist.add(bookVo);
-                int num=0;
-                num++;						//1씩 증가하는 번호 부여
-                bookVo.setbNum(num);
-                System.out.println(bookVo.getbNum() + "/" + bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +
-                		bookVo.getbStock());
-                System.out.println("등록 완료");
-                sc.nextLine();
-                break;
-            } else if (check == 2) {
-                System.out.println("다시 입력해주세요");
-            } else {
-                System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
-                break; 
-            } //end if-else
-            }// end while
+		
        } 
-
-	
 
 	@Override
 	public void deleteBook() {
-		String name;
-		 while (true) {
-	            System.out.println("삭제 할 도서 제목을 입력해주세요");
-	            name = sc.nextLine();
-	            int cnt = 0;
-	            for (int i = 0; i < booklist.size(); i++) {
-	                if (name.equals(booklist.get(i).getbTitle())) {
-	                	System.out.println(booklist.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
-	                	System.out.println("[YES]1 / [NO]2 / [돌아가기]0");
-	                	int select = sc.nextInt();
-	                	if(select == 1) {
-		                    booklist.remove(i);
-		                    cnt++;
-		                    System.out.println("도서 삭제 완료");
-		                    sc.nextLine();
-		                    break;
-	                	}else if(select == 2) {
-	                		System.out.println("다시 입력하세요");
-	                		break;
-	                	}else {
-	                		System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
-	                        break;
-	                	}	                		
-	                }
-	            } // end for
-	            if (cnt == 0) {
-	                System.out.println("해당 도서가 존재하지 않습니다. 다시 입력하세요.");
-	            } else {
-	                break;// 메인으로
-	            }
-	        } // end while
 	}
 	
 
@@ -141,8 +72,6 @@ public class BookPlay implements Book {
 	   }
 	  }
 	 }
-		
-
 
 	@Override
 	public void backBook() {
@@ -181,4 +110,8 @@ public class BookPlay implements Book {
 	  return false;
 
 	}
-	 }	
+
+	
+		
+	}
+	 

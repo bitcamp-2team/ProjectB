@@ -1,31 +1,28 @@
 
  public interface Book {
 	
-	 /** ¸Þ´ºÃâ·Â*/ // ÃÖ»ó->¸Þ´º Ãâ·Â ¹× ÀüÃ¼ ±¸Á¶ È¿¹Ì
-	
+	 /** ë©”ë‰´ì¶œë ¥*/
+	void printBookMenu();
 
-	/** 1.°Ë»ö±â´É 4Á¾ [1.µµ¼­Á¦¸ñ, 2.Ã¥¹øÈ£, 3.ÃâÆÇ»ç, 4.ÀúÀÚ] */
-	void searchMenu(); //»ó    //½Â¿Á
-	 
+	/** 1.ê²€ìƒ‰ê¸°ëŠ¥ 4ì¢… [1.ë„ì„œì œëª©,2.ì±…ë²ˆí˜¸,3.ì¶œíŒì‚¬,4.ì €ìž]*/
+	void searchMenu(); 
 	void searchForName();
 	void searchForNum();
 	void searchForAuthor();
 	void searchForPublisher();
 
-	/**  2.Ã¥ Á¤º¸ Á¶È¸*/  //ÇÏ  //½Â¿Á
+	/**  ì±… ì •ë³´ ì¡°íšŒ*/
 	void showBookInfo();
 	
-	/**  3. µµ¼­ µî·Ï   [µµ¼­Á¦¸ñ, Ã¥¹øÈ£, ÃâÆÇ»ç, ÀúÀÚ, Àç°í] */  //Áß  //ÇÏÀ±
+	/** ë„ì„œ ë“±ë¡[ë„ì„œì œëª©,ì±…ë²ˆí˜¸,ì¶œíŒì‚¬,ì €ìž ìž¬ê³ ]*/
 	void addBook();
 
-	/**  4. µµ¼­ »èÁ¦*/   //Áß  //ÇÏÀ±
+	/**  4. ë„ì„œ ì‚­ì œ*/
 	void deleteBook();
 	
-	/**  5. µµ¼­ ´ë¿©*/   //»ó  // ¼¼Àº 
+	/**  5. ë„ì„œ ëŒ€ì—¬*/
 	void rendBook();
 	
-	/**  6. µµ¼­ ¹Ý³³*/  //»ó  // ¼¼Àº 
+	/**  6. ë„ì„œ ë°˜ë‚©*/
 	void backBook();
-	
-	
 }
