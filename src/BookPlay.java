@@ -6,6 +6,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class BookPlay implements Book {
+	final String SUCCESS = "일치하는 도서를 출력합니다.";
+	final String FAIL = "일치하는 도서가 없습니다. 다시 입력해주세요.";
+	final String EMPTY = "등록된 도서가 없습니다.";
+	final String MENU = "\n<<<도서검색 메뉴입니다.>>>"; 
+	Scanner sc = new Scanner(System.in);
+	
+	static ArrayList<BookVo> BookList = new ArrayList<>(); 
+
 	 private ArrayList<BookVo> booklist;
 	 
 	@Override
