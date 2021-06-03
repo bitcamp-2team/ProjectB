@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class BookPlay implements Book {
 	BookVo bookVo = new BookVo();
 	Scanner sc = new Scanner(System.in);
-	int num = 0;
+	int num = 0;		//도서 번호
 	
 	static ArrayList<BookVo> BookList = new ArrayList<>(); 
 	
@@ -31,6 +31,7 @@ public class BookPlay implements Book {
 	public void showBookInfo() {
 	}
 
+	//도서 등록
 	@Override
 	public void addBook() {
 		while (true) {
@@ -51,7 +52,7 @@ public class BookPlay implements Book {
             
             if (check == 1) {
             	BookList.add(bookVo);
-                num++;						//1씩 증가하는 번호 부여
+                num++;						//도서번호에 1씩 증가하는 번호 부여
                 bookVo.setbNum(num);
                 System.out.println(bookVo.getbNum() + "/" + bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +
                 		bookVo.getbStock());
@@ -66,7 +67,8 @@ public class BookPlay implements Book {
             } //end if-else
             }// end while
        } 
-
+	
+	//도서 삭제(제목 이용)
 	@Override
 	public void deleteBook() {
 		String name;

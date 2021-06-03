@@ -1,12 +1,12 @@
 
 public class BookVo {
 	String bTitle;		// 도서제목
-	String bNum;		// 도서번호
+	static int bNum;	// 도서번호 static int로 변경
 	String bAuthor;		// 도서저자
 	String bPublisher;	// 도서출판사
 	int bStock;			// 도서재고
 	
-	public BookVo(String bTitle, String bNum, String bAuthor, String bPublisher, int stock) {
+	public BookVo(String bTitle, int bNum, String bAuthor, String bPublisher, int stock) {
 		super();
 		this.bTitle = bTitle;
 		this.bNum = bNum;
@@ -21,8 +21,8 @@ public class BookVo {
 	public String getbTitle() { return bTitle; }
 	public void setbTitle(String bTitle) { this.bTitle = bTitle; }
 	
-	public String getbNum() { return bNum; }
-	public void setbNum(String bNum) { this.bNum = bNum; }
+	public int getbNum() { return bNum; }
+	public void setbNum(int num) { this.bNum = num; }
 	
 	public String getbAuthor() { return bAuthor; }
 	public void setbAuthor(String bAuthor) { this.bAuthor = bAuthor; }
