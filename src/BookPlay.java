@@ -62,7 +62,6 @@ public class BookPlay implements Book {
 	   if (booklist.get(idx).isLoaned()) {
 	    System.out.println("대여중입니다.");}
 	   
-	   
 	   else {
 	    System.out.println("대여완료");
 	    System.out.println("대여일 : "+df.format(cal.getTime()));
@@ -99,7 +98,6 @@ public class BookPlay implements Book {
 	    return i;
 	  }
 	  return -1;
-
 	 }
 
 	 public boolean findId(String id) {
@@ -108,10 +106,6 @@ public class BookPlay implements Book {
 	    return true;
 	  }
 	  return false;
-
 	}
-
-	
-		
 	}
 	 
