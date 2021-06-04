@@ -5,161 +5,110 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class BookPlay implements Book {
-	
+
+	BookVo bookVo = new BookVo();
 	Scanner sc = new Scanner(System.in);
-	 BookVo bookVo = new BookVo();
-	 private ArrayList<BookVo> booklist;
+	int num = 0;		//도서 번호
 	
-	 @Override
-	 public void printBookMenu() {
-	 }
-	 
+	 private ArrayList<BookVo> booklist; = new ArrayList<>(); 
+	
 
 	@Override
 	public void searchMenu() {	
-		while(true) {
-			System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.등록 6. 전체조회");
-			int menu = sc.nextInt();
-			if('0' <= menu && menu <= '9') {
-			switch(menu) {
-				case 1:
-					searchForName();
-					break;
-				case 2:
-					searchForAuthor();
-					break;
-				case 3:
-					searchForNum();
-					break;
-				case 4:
-					searchForPublisher();
-					break;
-				case 5:
-					add();
-					break;
-				case 6:
-					showBookInfo();
-					break;
-				default:
-					System.out.println("메뉴에 있는 번호 입력해주세요");
-			} 
-		} else {
-			System.out.println("메뉴에있는숫자입력");
-		}
-	}
 	}
 	
-	// 도서제목으로 검색
 	@Override
 	public void searchForName() {
-		System.out.print("도서제목으로 검색합니다.\n제목 입력 : ");
-		String BookTitle = sc.next();	
-		for(int i = 0; i < BookList.size(); i++) {
-				BookVo a = BookList.get(i);
-				String num = a.getbTitle(); 
-				if(BookTitle.equalsIgnoreCase(num)) {
-					System.out.println(SUCCESS);
-					System.out.println("제목 : " + a.bTitle);
-					System.out.println("저자 : " + a.bAuthor);
-					System.out.println("출판사 : " + a.bPublisher);
-					System.out.println("번호 : " + a.bNum);
-					System.out.println("재고 : " + a.bStock);
-					break;
-				} else if(i == BookList.size()-1) {
-					System.out.println(FAIL);
-				} else if(BookList.equals(null)) {
-					System.out.println(EMPTY);
-				}
-			}
 	}
-	
-	// 도서번호로 검색
 	@Override
 	public void searchForNum() {
-		System.out.print("도서번호로 검색합니다.\n번호 입력 : ");
-		String BookNum = sc.next();	
-		for(int i = 0; i < BookList.size(); i++) {
-				BookVo a = BookList.get(i);
-				String num = a.getbNum(); 
-				if(BookNum.equalsIgnoreCase(num)) {
-					System.out.println(SUCCESS);
-					System.out.println("제목 : " + a.bTitle);
-					System.out.println("저자 : " + a.bAuthor);
-					System.out.println("출판사 : " + a.bPublisher);
-					System.out.println("번호 : " + a.bNum);
-					System.out.println("재고 : " + a.bStock);
-					break;
-				} else if(i == BookList.size()-1) {
-					System.out.println(FAIL);
-				}
-		}
 	}
-	
-	// 도서저자로 검색
+		
 	@Override
 	public void searchForAuthor() {
-		System.out.print("도서저자로 검색합니다.\n저자 입력 : ");
-		String BookAuthor = sc.next();	
-		for(int i = 0; i < BookList.size(); i++) {
-				BookVo a = BookList.get(i);
-				String num = a.getbAuthor(); 
-				if(BookAuthor.equalsIgnoreCase(num)) {
-					System.out.println(SUCCESS);
-					System.out.println("제목 : " + a.bTitle);
-					System.out.println("저자 : " + a.bAuthor);
-					System.out.println("출판사 : " + a.bPublisher);
-					System.out.println("번호 : " + a.bNum);
-					System.out.println("재고 : " + a.bStock);
-					break;
-				} else if(i == BookList.size()-1) {
-					System.out.println(FAIL);
-				} 
-		}
 	}
-	
-	// 도서출판사로 검색
+		
 	@Override
 	public void searchForPublisher() {
-		System.out.print("도서출판사로 검색합니다.\n출판사 입력 : ");
-		String BookPublisher = sc.next();	
-		for(int i = 0; i < BookList.size(); i++) {
-				BookVo a = BookList.get(i);
-				String num = a.getbPublisher(); 
-				if(BookPublisher.equalsIgnoreCase(num)) {
-					System.out.println(SUCCESS);
-					System.out.println("제목 : " + a.bTitle);
-					System.out.println("저자 : " + a.bAuthor);
-					System.out.println("출판사 : " + a.bPublisher);
-					System.out.println("번호 : " + a.bNum);
-					System.out.println("재고 : " + a.bStock);
-					break;
-				} else if(i == BookList.size()-1) {
-					System.out.println(FAIL);
-				}
-		}
 	}
-
-	// 전체도서목록 조회
+	
 	@Override
 	public void showBookInfo() {
-    	for(int i = 0; i < BookList.size(); i++) {
-    		System.out.printf("======== %d번째 도서 ========%n", i+1);
-        	BookVo a = BookList.get(i);
-        	System.out.println("제목 : " + a.bTitle);
-        	System.out.println("출판사 : " + a.bPublisher);
-        	System.out.println("저자 : " + a.bAuthor);
-        	System.out.println("번호 : " + a.bNum);
-        	System.out.println("재고 : " + a.bStock);
-    	}
 	}
 
+	//도서 등록
 	@Override
 	public void addBook() {
-		
+
+		while (true) {
+            System.out.println("책 제목 :");
+            bookVo.setbTitle(sc.nextLine());
+            System.out.println("작가: ");
+            bookVo.setbAuthor(sc.nextLine());
+            System.out.println("출판사 :");
+            bookVo.setbPublisher(sc.nextLine());
+            System.out.println("수량 :");
+            bookVo.setbStock(sc.nextInt());
+ 
+            /**확인하기*/
+            System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +bookVo.getbStock());            
+            System.out.println("입력하신 사항이 모두 맞습니까?");           
+            System.out.println("[YES] 1/ [NO] 2");
+            int check = sc.nextInt();
+            
+            if (check == 1) {
+            	BookList.add(bookVo);
+                num++;						//도서번호에 1씩 증가하는 번호 부여
+                bookVo.setbNum(num);
+                System.out.println(bookVo.getbNum() + "/" + bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +
+                		bookVo.getbStock());
+                System.out.println("등록 완료");
+                sc.nextLine();
+                break;
+            } else if (check == 2) {
+                System.out.println("다시 입력해주세요");
+            } else {
+                System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
+                break; 
+            } //end if-else
+            }// end while
        } 
+	
+	//도서 삭제(제목 이용)
 
 	@Override
 	public void deleteBook() {
+		String name;
+		 while (true) {
+	            System.out.println("삭제 할 도서 제목을 입력해주세요");
+	            name = sc.nextLine();
+	            int cnt = 0;
+	            for (int i = 0; i < BookList.size(); i++) {
+	                if (name.equals(BookList.get(i).getbTitle())) {
+	                	System.out.println(BookList.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
+	                	System.out.println("[YES]1 / [NO]2 / [돌아가기]0");
+	                	int select = sc.nextInt();
+	                	if(select == 1) {
+	                		BookList.remove(i);
+		                    cnt++;
+		                    System.out.println("도서 삭제 완료");
+		                    sc.nextLine();
+		                    break;
+	                	}else if(select == 2) {
+	                		System.out.println("다시 입력하세요");
+	                		break;
+	                	}else {
+	                		System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
+	                        break;
+	                	}	                		
+	                }
+	            } // end for
+	            if (cnt == 0) {
+	                System.out.println("해당 도서가 존재하지 않습니다. 다시 입력하세요.");
+	            } else {
+	                break;// 메인으로
+	            }
+	        } // end while
 	}
 	
 
