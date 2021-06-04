@@ -21,7 +21,7 @@ public class BookPlay implements Book {
 	public void searchMenu() {	
 			outer:
 			while(true) {
-				System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.전체조회 6.도서등록 7.뒤로가기");
+				System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.전체조회 6.뒤로가기");
 				int menu = sc.nextInt();
 				switch(menu) {
 					case 1:
@@ -40,9 +40,6 @@ public class BookPlay implements Book {
 						showBookInfo();			// 도서목록조회 메서드
 						break;
 					case 6:
-						addBook();				// 도서등록 메서드
-						break;
-					case 7:
 						System.out.println("뒤로가기 성공");
 						break outer;			// Main으로 되돌아가기
 					default:
@@ -85,7 +82,7 @@ public class BookPlay implements Book {
 		for(int i = 0; i < bookList.size(); i++) {
 				BookVo a = bookList.get(i);
 				int num = a.getbNum(); 
-				if(BookNum.equalsIgnoreCase(num)) {
+				if(num == a.getbNum()) {
 					System.out.println(SUCCESS);
 					System.out.println("제목 : " + a.getbTitle());
 					System.out.println("저자 : " + a.getbAuthor());
