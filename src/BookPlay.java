@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class BookPlay implements Book {
 	
-	final String SUCCESS = "일치하는 도서를 출력합니다.";
+	final String SUCCESS = "일치하는도서를 출력합니다.";
 	final String FAIL = "일치하는 도서가 없습니다. 다시 입력해주세요.";
 	final String EMPTY = "등록된 도서가 없습니다.";
 	final String MENU = "\n<<<도서검색 메뉴입니다.>>>"; 
