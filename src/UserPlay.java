@@ -244,7 +244,17 @@ public class UserPlay implements User {
 
 	@Override
 	public void withdrawal() {
-	}
+		System.out.println("회원탈퇴를 하시겠습까?[Y/N]");
+		System.out.println(PROMPT);
+		if("Y".equalsIgnoreCase(sc.next())) {
+			for (UserVo userList : userList) {
+				if(userList.getId().equals(logInUser.getId())) {
+					this.userList.remove(userList);
+				}
+			}
+		}
+	}//withdrawal 메서드 종료
+	
 	
 	public void managerLogin() {
 		Scanner sc = new Scanner(System.in);
