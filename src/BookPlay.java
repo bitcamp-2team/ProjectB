@@ -5,17 +5,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class BookPlay implements Book {
-
 	final String SUCCESS = "일치하는도서를 출력합니다.";
 	final String FAIL = "일치하는 도서가 없습니다. 다시 입력해주세요.";
 	final String EMPTY = "등록된 도서가 없습니다.";
 	final String MENU = "\n<<<도서검색 메뉴입니다.>>>"; 
 
-	BookVo bookVo = new BookVo();
 	Scanner sc = new Scanner(System.in);
 	int num = 0;		//도서 번호
 	
-	static ArrayList<BookVo> booklist = new ArrayList<>(); 
+	static ArrayList<BookVo> bookList = new ArrayList<>(); 
+
 
 	// 도서검색 메뉴
 	@Override
@@ -58,8 +57,8 @@ public class BookPlay implements Book {
 	public void searchForName() {
 		System.out.print("도서제목으로 검색합니다.\n제목 입력 : ");
 		String BookTitle = sc.next();	
-		for(int i = 0; i < booklist.size(); i++) {
-				BookVo a = booklist.get(i);
+		for(int i = 0; i < bookList.size(); i++) {
+				BookVo a = bookList.get(i);
 				String num = a.getbTitle(); 
 				if(BookTitle.equalsIgnoreCase(num)) {
 					System.out.println(SUCCESS);
@@ -69,9 +68,11 @@ public class BookPlay implements Book {
 					System.out.println("번호 : " + a.getbNum());
 					System.out.println("재고 : " + a.getbStock());
 					break;
-				} else {
+				} else if(i == bookList.size()-1) {
 					System.out.println(FAIL);
-				} 
+				} else if(bookList.equals(null)) {
+					System.out.println(EMPTY);
+				}
 			}
 	}
 	
@@ -79,10 +80,12 @@ public class BookPlay implements Book {
 	@Override
 	public void searchForNum() {
 		System.out.print("도서번호로 검색합니다.\n번호 입력 : ");
-		int BookNum = sc.nextInt();	
-		for(int i = 0; i < booklist.size(); i++) {
-				BookVo a = booklist.get(i);
-				if(BookNum == num) {
+
+		String BookNum = sc.next();	
+		for(int i = 0; i < bookList.size(); i++) {
+				BookVo a = bookList.get(i);
+				int num = a.getbNum(); 
+				if(BookNum.equalsIgnoreCase(num)) {
 					System.out.println(SUCCESS);
 					System.out.println("제목 : " + a.getbTitle());
 					System.out.println("저자 : " + a.getbAuthor());
@@ -90,7 +93,7 @@ public class BookPlay implements Book {
 					System.out.println("번호 : " + a.getbNum());
 					System.out.println("재고 : " + a.getbStock());
 					break;
-				} else if(i == booklist.size()-1) {
+				} else if(i == bookList.size()-1) {
 					System.out.println(FAIL);
 				}
 		}
@@ -101,8 +104,8 @@ public class BookPlay implements Book {
 	public void searchForAuthor() {
 		System.out.print("도서저자로 검색합니다.\n저자 입력 : ");
 		String BookAuthor = sc.next();	
-		for(int i = 0; i < booklist.size(); i++) {
-				BookVo a = booklist.get(i);
+		for(int i = 0; i < bookList.size(); i++) {
+				BookVo a = bookList.get(i);
 				String num = a.getbAuthor(); 
 				if(BookAuthor.equalsIgnoreCase(num)) {
 					System.out.println(SUCCESS);
@@ -112,7 +115,7 @@ public class BookPlay implements Book {
 					System.out.println("번호 : " + a.getbNum());
 					System.out.println("재고 : " + a.getbStock());
 					break;
-				} else if(i == booklist.size()-1) {
+				} else if(i == bookList.size()-1) {
 					System.out.println(FAIL);
 				} 
 		}
@@ -124,10 +127,12 @@ public class BookPlay implements Book {
 	public void searchForPublisher() {
 
 		System.out.print("도서출판사로 검색합니다.\n출판사 입력 : ");
-		String BookPublisher = sc.next();
-		for(int i = 0; i < booklist.size(); i++) {
-				String num = sc.next();
-				BookVo a = booklist.get(i);
+    
+		String BookPublisher = sc.next();	
+		for(int i = 0; i < bookList.size(); i++) {
+				BookVo a = bookList.get(i);
+				String num = a.getbPublisher(); 
+
 				if(BookPublisher.equalsIgnoreCase(num)) {
 					System.out.println(SUCCESS);
 					System.out.println("제목 : " + a.getbTitle());
@@ -136,7 +141,7 @@ public class BookPlay implements Book {
 					System.out.println("번호 : " + a.getbNum());
 					System.out.println("재고 : " + a.getbStock());
 					break;
-				} else if(i == booklist.size()-1) {
+				} else if(i == bookList.size()-1) {
 					System.out.println(FAIL);
 				}
 		}
@@ -145,9 +150,11 @@ public class BookPlay implements Book {
 	//도서전체목록 조회
 	@Override
 	public void showBookInfo() {
-    	for(int i = 0; i < booklist.size(); i++) {
+    	for(int i = 0; i < bookList.size(); i++) {
     		System.out.printf("======== %d번째 도서 ========%n", i+1);
-        	BookVo a = booklist.get(i);
+
+        	BookVo a = bookList.get(i);
+
         	System.out.println("제목 : " + a.getbTitle());
         	System.out.println("출판사 : " + a.getbPublisher());
         	System.out.println("저자 : " + a.getbAuthor());
@@ -159,15 +166,31 @@ public class BookPlay implements Book {
 	//도서 등록
 	@Override
 	public void addBook() {
+		
 		while (true) {
+			BookVo bookVo = new BookVo();
+			System.out.println("<<도서 등록>>");
             System.out.println("책 제목 :");
-            bookVo.setbTitle(sc.next());
-            System.out.println("작가: ");
+
+            String title = sc.next();
+            
+            if(findTitle(title)) {			//중복된 도서가 있다면 입력 불가
+            	System.out.println("중복된 도서가 있습니다.");
+            	break;
+            }else {
+            	 bookVo.setbTitle(title);
+                 System.out.println("작가: ");
+            }
             bookVo.setbAuthor(sc.next());
             System.out.println("출판사 :");
             bookVo.setbPublisher(sc.next());
             System.out.println("수량 :");
-            bookVo.setbStock(sc.nextInt());
+            while (!sc.hasNextInt()) { 					//값이 숫자인지 판별
+                sc.next();  							//값이 숫자가 아니면 버린다.
+                System.err.print("숫자만 입력해주세요. \n다시입력 수량: ");
+            }
+            bookVo.setbStock(sc.nextInt());				//위에서 값이 숫자일 경우 이쪽으로 값을 넣어준다.
+            
  
             /**확인하기*/
             System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +bookVo.getbStock());            
@@ -176,16 +199,18 @@ public class BookPlay implements Book {
             int check = sc.nextInt();
             
             if (check == 1) {
-            	booklist.add(bookVo);
+            	bookList.add(bookVo);
                 num++;						//도서번호에 1씩 증가하는 번호 부여
                 bookVo.setbNum(num);
-                System.out.println(bookVo.getbNum() + "/" + bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +
+                System.out.println("도서 번호:" + bookVo.getbNum());
+                System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +
                 		bookVo.getbStock());
                 System.out.println("등록 완료");
                 sc.nextLine();
                 break;
             } else if (check == 2) {
                 System.out.println("다시 입력해주세요");
+                sc.nextLine();
             } else {
                 System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
                 break; 
@@ -193,27 +218,41 @@ public class BookPlay implements Book {
             }// end while
        } 
 	
+
+	private boolean findTitle(String title) {	//중복된 도서가 있는지 확인
+		for (int i = 0; i < bookList.size(); i++) {
+			   if (bookList.get(i).getbTitle().equals(title))
+			    return true;
+			  }
+			  return false;
+		}
+
+
 	//도서 삭제(제목 이용)
 	@Override
 	public void deleteBook() {
 		String name;
+        System.out.println("<<도서 삭제 >>");
 		 while (true) {
+		        sc.nextLine();
 	            System.out.println("삭제 할 도서 제목을 입력해주세요");
 	            name = sc.nextLine();
 	            int cnt = 0;
-	            for (int i = 0; i < booklist.size(); i++) {
-	                if (name.equals(booklist.get(i).getbTitle())) {
-	                	System.out.println(booklist.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
+	            for (int i = 0; i < bookList.size(); i++) {
+	                if (name.equals(bookList.get(i).getbTitle())) {
+	                	System.out.println(bookList.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
 	                	System.out.println("[YES]1 / [NO]2 / [돌아가기]0");
 	                	int select = sc.nextInt();
 	                	if(select == 1) {
-	                		booklist.remove(i);
+	                		bookList.remove(i);
 		                    cnt++;
 		                    System.out.println("도서 삭제 완료");
 		                    sc.nextLine();
 		                    break;
 	                	}else if(select == 2) {
 	                		System.out.println("다시 입력하세요");
+	                		sc.nextLine();
+	                		cnt++;
 	                		break;
 	                	}else {
 	                		System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
@@ -241,7 +280,7 @@ public class BookPlay implements Book {
 	  if (idx == -1)
 	   System.out.println("등록되지 않은 번호입니다.");
 	  else {
-	   if (booklist.get(idx).isLoaned()) {
+	   if (bookList.get(idx).isLoaned()) {
 	    System.out.println("대여중입니다.");}
 	   
 	   else {
@@ -249,7 +288,7 @@ public class BookPlay implements Book {
 	    System.out.println("대여일 : "+df.format(cal.getTime()));
 	    cal.add(Calendar.DATE,7);
 	    System.out.println("반납일 : "+df.format(cal.getTime()));
-	    booklist.get(idx).setLoaned(true);
+	    bookList.get(idx).setLoaned(true);
 	   }
 	  }
 	 }
@@ -266,7 +305,7 @@ public class BookPlay implements Book {
 	  if (idx == -1)
 	   System.out.println("등록되지 않은 번호입니다.");
 	  else {
-	   if (booklist.get(idx).isLoaned()) {
+	   if (bookList.get(idx).isLoaned()) {
 	    System.out.println("반납 완료.");
 	    cal.add(Calendar.DATE,7);
 	    System.out.println("반납일 : "+df.format(cal.getTime()));
@@ -275,17 +314,19 @@ public class BookPlay implements Book {
 	  }
 	 }
 
-	public int findListIndex(String id) {
-	  for (int i = 0; i < booklist.size(); i++) {
-	   if (booklist.get(i).equals(id))
+	 public int findListIndex(String id) {
+	  for (int i = 0; i < bookList.size(); i++) {
+	   if (bookList.get(i).equals(id)){
 	    return i;
+     }
 	  }
 	  return -1;
 	 }
 
-	public boolean findId(String id) {
-	  for (int i = 0; i < booklist.size() - 1; i++) {
-	   if (booklist.get(i).equals(id))
+
+	 public boolean findId(String id) {
+	  for (int i = 0; i < bookList.size() - 1; i++) {
+	   if (bookList.get(i).equals(id))
 	    return true;
 	  }
 	  return false;

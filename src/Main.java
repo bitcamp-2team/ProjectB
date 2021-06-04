@@ -22,10 +22,39 @@ public class Main {
 					break;
         }
 				case "2":{
+                    /** 메서드 managerMenu()를 bookPlay클래스에서 선언하면 될 것 같습니다. 수정부탁드리겠습니다.*/
+// 		               BookPlay bookPlay = new BookPlay();
+// 		               while(true) {
+// 		               System.out.println("[1]추가 [2삭제 [3]대출 [4]반납 [5]도서검색 [0]돌아가기");
+// 		               int select = sc.nextInt();
+// 		               switch(select){
+// 		               case 1 :
+// 		                  bookPlay.addBook();
+// 		                  break;
+// 		               case 2:
+// 		                  bookPlay.deleteBook();
+// 		                  break;
+// 		               case 3:
+// 		                  bookPlay.rendBook();
+// 		                  break;
+// 		               case 4:
+// 		                  bookPlay.backBook();
+// 		                  break;
+// 		               case 5:
+// 		            	   bookPlay.searchMenu();		            	   
+// 		            	   break;
+// 		               case 0:
+// 		                  break;
+// 		               }
+// 		               }
+		          
+// 		            }
+
 					userPlay.managerLogin(); //사서 로그인 메소드 호출
 					managerMenu(); //사서 로그인하고나면 managerMenu페이지로 가야 함
 					break;      
 				}
+
 				case "0" : {
 					System.out.println("프로그램이 종료됩니다.");
 					sc.close();
