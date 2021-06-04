@@ -15,36 +15,43 @@ public class BookPlay implements Book {
 	Scanner sc = new Scanner(System.in);
 	int num = 0;		//도서 번호
 	
-	ArrayList<BookVo> booklist = new ArrayList<>(); 
+	static ArrayList<BookVo> booklist = new ArrayList<>(); 
 
 	// 도서검색 메뉴
 	@Override
 	public void searchMenu() {	
-			System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.전체조회 6.도서등록");
-			int menu = sc.nextInt();
-			switch(menu) {
-				case 1:
-					searchForName();
-					break;
-				case 2:
-					searchForAuthor();
-					break;
-				case 3:
-					searchForNum();
-					break;
-				case 4:
-					searchForPublisher();
-					break;
-				case 5:
-					showBookInfo();
-					break;
-				case 6:
-					addBook();
-					break;
-				default:
-					System.out.println("메뉴에 있는 번호 입력해주세요");
-			}
-	}
+			outer:
+			while(true) {
+				System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.전체조회 6.도서등록 7.뒤로가기");
+				int menu = sc.nextInt();
+				switch(menu) {
+					case 1:
+						searchForName();		// 도서제목검색 메서드
+						break;
+					case 2:
+						searchForAuthor();		// 도서저자검색 메서드
+						break;
+					case 3:
+						searchForNum();			// 도서번호검색 메서드
+						break;
+					case 4:
+						searchForPublisher();	// 도서출판사검색 메서드	
+						break;
+					case 5:
+						showBookInfo();			// 도서목록조회 메서드
+						break;
+					case 6:
+						addBook();				// 도서등록 메서드
+						break;
+					case 7:
+						System.out.println("뒤로가기 성공");
+						break outer;			// Main으로 되돌아가기
+					default:
+						System.out.println("메뉴에 있는 번호 입력해주세요");
+						break;					// searchMenu() 처음으로 
+				}	// switch문 종료
+			}		// while문 종료
+	}				// searchMenu() 종료
 	
 	// 도서제목으로 검색
 	@Override
@@ -62,11 +69,9 @@ public class BookPlay implements Book {
 					System.out.println("번호 : " + a.getbNum());
 					System.out.println("재고 : " + a.getbStock());
 					break;
-				} else if(i == booklist.size()-1) {
+				} else {
 					System.out.println(FAIL);
-				} else if(booklist.equals(null)) {
-					System.out.println(EMPTY);
-				}
+				} 
 			}
 	}
 	
@@ -114,15 +119,15 @@ public class BookPlay implements Book {
 
 	}
 	
-	// 도서출판사로 검색	
+	// 도서출판사로 검색
 	@Override
 	public void searchForPublisher() {
 
 		System.out.print("도서출판사로 검색합니다.\n출판사 입력 : ");
-		String BookPublisher = sc.next();	
+		String BookPublisher = sc.next();
 		for(int i = 0; i < booklist.size(); i++) {
+				String num = sc.next();
 				BookVo a = booklist.get(i);
-				String num = a.getbPublisher(); 
 				if(BookPublisher.equalsIgnoreCase(num)) {
 					System.out.println(SUCCESS);
 					System.out.println("제목 : " + a.getbTitle());
