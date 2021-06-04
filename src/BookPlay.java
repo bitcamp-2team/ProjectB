@@ -57,7 +57,7 @@ public class BookPlay implements Book {
 					System.out.println("메뉴에 있는 번호 입력해주세요");
 			} 
 		} else {
-			System.out.println("메뉴에있는숫자입력");
+			System.out.println("메뉴에1있는숫자입력");
 		}
 	}
 	}
