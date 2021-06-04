@@ -37,6 +37,7 @@ public class Main {
 	} //main method(초기화면) 종료
 
 	
+/** 여기부터 일반회원메뉴 메소드 */
 	static void membersMenu() { //일반회원메뉴 출력	
 		do {	
 			System.out.println(MENU + "1.회원가입  2.로그인  0.초기메뉴");
@@ -93,7 +94,7 @@ public class Main {
 			String input = sc.next();
 			switch(input) {
 				case "1" : {
-					userPlay.viewRentalBooks(); //대여목록보기 메소드 호출
+					userPlay.viewRentalBooks(); //대여목록보기 메소드 호출 
 					break;
 				}
 				case "2" : {
@@ -109,8 +110,10 @@ public class Main {
 			}
 		} while(true);
 	} //myPage(마이페이지)메소드 종료
-	
-	
+/** 여기까지 일반회원메뉴 메소드 */
+
+
+/** 여기부터 사서메뉴 메소드 */	
 	static void managerMenu() { //사서메뉴 출력	
 		do {	
 			System.out.println(MENU + "1. 도서 전체목록 보기  2.도서 검색  3.도서 등록  4.도서 삭제  5.도서 대여처리  6.도서 반납처리  0.사서모드 종료");
@@ -148,5 +151,6 @@ public class Main {
 			}
 		} while(true);		
 	} //managerMenu(사서메뉴)메소드 종료
+/** 여기까지 사서메뉴 메소드 */	
 	
 } //main class종료
