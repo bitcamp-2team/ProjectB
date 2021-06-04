@@ -134,7 +134,7 @@ public class UserPlay implements User {
 			}
 		}
 		return false;
-	}//checkPw 메서드 끝
+	} //checkPw 메서드 끝
 
 	private int infoName(UserVo inputInfo) {
 		System.out.println("[Step.4]이름을 입력해주세요.(0.메뉴로 돌아가기)");

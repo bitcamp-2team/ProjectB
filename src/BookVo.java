@@ -1,7 +1,8 @@
 
 public class BookVo {
-private String bTitle;
-	private static int bNum;
+
+	private String bTitle;
+	private int bNum;
 	private String bAuthor;
 	private String bPublisher;
 	private int bStock;
@@ -20,11 +21,9 @@ private String bTitle;
 		this.bNum = bNum;
 		this.bAuthor = bAuthor;
 		this.bPublisher = bPublisher;
-
 		this.bStock = bStock;
-		this.Loaned=Loaned;
+		this.Loaned = Loaned;
 		
-
 	}
 
 	public BookVo() {};  //기본생성자
@@ -44,8 +43,8 @@ private String bTitle;
 	public int getbStock() { return bStock; }
 	public void setbStock(int bStock) { this.bStock = bStock; }
   
-  public boolean isLoaned() {return Loaned; }
-
-		 public void setLoaned(boolean Loaned) { this.Loaned = Loaned; }
+	public boolean isLoaned() {return Loaned; }
+	public void setLoaned(boolean Loaned) { this.Loaned = Loaned; }
+	
 }
 
