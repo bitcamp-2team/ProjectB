@@ -10,6 +10,7 @@ public class BookPlay implements Book {
 	Scanner sc = new Scanner(System.in);
 	int num = 0;		//도서 번호
 	
+
 	 private ArrayList<BookVo> booklist = new ArrayList<>();
 	@Override
 	public void printBookMenu(){
@@ -174,6 +175,10 @@ public class BookPlay implements Book {
 	    return true;
 	  }
 	  return false;
+	}
+
+	@Override
+	public void printBookMenu() {
 	}
 	}
 	 
