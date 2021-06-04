@@ -243,7 +243,7 @@ public class UserPlay implements User {
 	}
 
 	@Override
-	public int withdrawal() {
+	public void withdrawal() {
 		System.out.println("회원탈퇴를 하시겠습까?[Y/N]");
 		System.out.println(PROMPT);
 		if("Y".equalsIgnoreCase(sc.next())) { // Y입력시 do
@@ -257,7 +257,7 @@ public class UserPlay implements User {
 						if(checkId.getId().equals(logInUser.getId())) {
 							userList.remove(checkId);
 							System.out.println("탈퇴되었습니다. 감사합니다.");
-							return 1; // 1이면 membersMenu메뉴로 이동
+							Main.membersMenu(); // 1이면 membersMenu메뉴로 이동
 						}
 					}
 				}else {
@@ -265,7 +265,7 @@ public class UserPlay implements User {
 				}	
 			}while(true);
 		}// Y입력시 종료
-		return -1;  //-1이면 logInMenu메뉴로 이동
+		return;  //-1이면 myPage메뉴로 이동
 	}//withdrawal 메서드 종료
 	
 	
