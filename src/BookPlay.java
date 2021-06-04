@@ -81,11 +81,11 @@ public class BookPlay implements Book {
 	public void searchForNum() {
 		System.out.print("도서번호로 검색합니다.\n번호 입력 : ");
 
-		String BookNum = sc.next();	
+		int BookNum = sc.nextInt();	
 		for(int i = 0; i < bookList.size(); i++) {
 				BookVo a = bookList.get(i);
 				int num = a.getbNum(); 
-				if(BookNum.equalsIgnoreCase(num)) {
+				if(BookNum == num) {
 					System.out.println(SUCCESS);
 					System.out.println("제목 : " + a.getbTitle());
 					System.out.println("저자 : " + a.getbAuthor());
@@ -228,20 +228,38 @@ public class BookPlay implements Book {
 		}
 
 
-	//도서 삭제(제목 이용)
+	/**도서 삭제 */
 	@Override
-	public void deleteBook() {
-		String name;
+	public void deleteBook() {	
         System.out.println("<<도서 삭제 >>");
+        System.out.println("[제목으로 삭제]1 / [도서 번호로 삭제]2");
+        int sel = sc.nextInt();
+        
+        switch(sel) {
+        case 1:
+        	deleteTitle();
+        	break;
+        case 2:
+        	deleteNum();
+        	break;
+        default:
+        	System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
+        	break;
+        }	
+	}
+	
+	/**도서 번호 이용한 도서 삭제 */
+	private void deleteNum() {
+		 int num;
 		 while (true) {
 		        sc.nextLine();
-	            System.out.println("삭제 할 도서 제목을 입력해주세요");
-	            name = sc.nextLine();
+	            System.out.println("삭제 할 도서 번호를 입력해주세요");
+	            num = sc.nextInt();
 	            int cnt = 0;
 	            for (int i = 0; i < bookList.size(); i++) {
-	                if (name.equals(bookList.get(i).getbTitle())) {
-	                	System.out.println(bookList.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
-	                	System.out.println("[YES]1 / [NO]2 / [돌아가기]0");
+	                if (num == bookList.get(i).getbNum()) {
+	                	System.out.println(bookList.get(i).getbTitle() + "/" + bookList.get(i).getbAuthor() + "/" + bookList.get(i).getbPublisher() + "를 정말 삭제하겠습니까?");
+	                	System.out.println("[YES]1 / [NO]2");
 	                	int select = sc.nextInt();
 	                	if(select == 1) {
 	                		bookList.remove(i);
@@ -266,6 +284,44 @@ public class BookPlay implements Book {
 	                break;// 메인으로
 	            }
 	        } // end while
+	}
+	/**도서 제목 이용한 도서 삭제 */
+	private void deleteTitle() {
+		String name;
+		 while (true) {
+		        sc.nextLine();
+	            System.out.println("삭제 할 도서 제목을 입력해주세요");
+	            name = sc.nextLine();
+	            int cnt = 0;
+	            for (int i = 0; i < bookList.size(); i++) {
+	                if (name.equals(bookList.get(i).getbTitle())) {
+	                	System.out.println(bookList.get(i).getbTitle() + "/" + bookList.get(i).getbAuthor() + "/" + bookList.get(i).getbPublisher() + "를 정말 삭제하겠습니까?");
+	                	System.out.println("[YES]1 / [NO]2");
+	                	int select = sc.nextInt();
+	                	if(select == 1) {
+	                		bookList.remove(i);
+		                    cnt++;
+		                    System.out.println("도서 삭제 완료");
+		                    sc.nextLine();
+		                    break;
+	                	}else if(select == 2) {
+	                		System.out.println("다시 입력하세요");
+	                		sc.nextLine();
+	                		cnt++;
+	                		break;
+	                	}else {
+	                		System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
+	                        break;
+	                	}	                		
+	                }
+	            } // end for
+	            if (cnt == 0) {
+	                System.out.println("해당 도서가 존재하지 않습니다. 다시 입력하세요.");
+	            } else {
+	                break;// 메인으로
+	            }
+	        } // end while
+		
 	}
 	
 	@Override
