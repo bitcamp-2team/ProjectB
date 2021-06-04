@@ -1,10 +1,25 @@
  public interface Book {
 	
-	void searchMenu();			// 검색기능 
-	void searchForName();		// 도서제목
-	void searchForNum();		// 도서번호
-	void searchForAuthor();		// 도서저자
-	void searchForPublisher();	// 도서출판사
 
-	void showBookInfo();		// 도서전체목록 조회
-}
+	/** 1.검색기능 4종 [1.도서제목,2.책번호,3.출판사,4.저자]*/
+	void searchMenu(); 
+	void searchForName();
+	void searchForNum();
+	void searchForAuthor();
+	void searchForPublisher();
+
+	/**  책 정보 조회*/
+	void showBookInfo();
+	/** 도서 등록[도서제목,책번호,출판사,저자 재고]*/
+	void addBook();
+
+	/**  4. 도서 삭제*/
+	void deleteBook();
+	
+	/**  5. 도서 대여*/
+	void rendBook();
+	
+	/**  6. 도서 반납*/
+	void backBook();
+
+ }	

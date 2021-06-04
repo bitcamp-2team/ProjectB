@@ -1,6 +1,8 @@
 
-public interface User {
 
+public interface User {
+	/** 0.사서로그인 */
+	void managerLogin(); // 사서로그인 보안코드입력
 	
 	/** 1.회원가입  [ID., pw , 이름, Phone번호] */  //중 //용석
 	void join();
@@ -18,10 +20,17 @@ public interface User {
 	void viewRentalBooks();
 	
 	
-	/** 5.로그아웃 */ //하 //형태
+	/** 5.로그아웃 */ //하 //형태, 사서로그인
 	void logOut();
 	
 	
 	/** 6.회원 탈퇴 */  //하  //용석
 	void withdrawal();
 }
+
+
+
+ 
+
+		
+	
