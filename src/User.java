@@ -25,7 +25,7 @@ public interface User {
 	
 	
 	/** 6.회원 탈퇴 */  //하  //용석
-	void withdrawal();
+	int withdrawal();   //경우의 수 눌려고 void -->int형으로 변경
 }
 
 
