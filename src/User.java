@@ -25,7 +25,7 @@ public interface User {
 	
 	
 	/** 6.회원 탈퇴 */  //하  //용석
-	void withdrawal();
+	void withdrawal();  
 }
 
 

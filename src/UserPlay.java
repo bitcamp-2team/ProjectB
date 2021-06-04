@@ -134,7 +134,7 @@ public class UserPlay implements User {
 			}
 		}
 		return false;
-	}//checkPw 메서드 끝
+	} //checkPw 메서드 끝
 
 	private int infoName(UserVo inputInfo) {
 		System.out.println("[Step.4]이름을 입력해주세요.(0.메뉴로 돌아가기)");
@@ -244,7 +244,30 @@ public class UserPlay implements User {
 
 	@Override
 	public void withdrawal() {
-	}
+		System.out.println("회원탈퇴를 하시겠습까?[Y/N]");
+		System.out.println(PROMPT);
+		if("Y".equalsIgnoreCase(sc.next())) { // Y입력시 do
+			do {
+				System.out.println("비밀번호를 입력하세요.(0.뒤로가기)");
+				System.out.println(PROMPT);
+				String input = sc.next();
+				if(input.equals("0")) {break;} //0. 뒤로가기
+				if(input.equals(logInUser.getPw())) {  //입력 비번과 로그인 유저의 비번확인
+					for (UserVo checkId : userList) {
+						if(checkId.getId().equals(logInUser.getId())) {
+							userList.remove(checkId);
+							System.out.println("탈퇴되었습니다. 감사합니다.");
+							Main.membersMenu(); // 1이면 membersMenu메뉴로 이동
+						}
+					}
+				}else {
+					System.out.println("비밀번호가 틀렸습니다.");
+				}	
+			}while(true);
+		}// Y입력시 종료
+		return;  //-1이면 myPage메뉴로 이동
+	}//withdrawal 메서드 종료
+	
 	
 	public void managerLogin() {
 		Scanner sc = new Scanner(System.in);
