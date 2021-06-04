@@ -12,6 +12,11 @@ public class Main {
 	static BookPlay bookPlay = new BookPlay();
 	
 	public static void main(String[] args) { //초기화면 출력 
+		beginningPage();
+	} //main method(초기화면) 종료
+
+
+	static void beginningPage() { //초기화면 출력
 		do {
 			System.out.println(MENU + "1.일반회원  2.사서  0.종료");
 			System.out.print(PROMPT);
@@ -20,50 +25,21 @@ public class Main {
 				case "1" : {				
 					membersMenu(); //일반회원메뉴 출력 메소드 호출
 					break;
-        }
+				}
 				case "2":{
-                    /** 메서드 managerMenu()를 bookPlay클래스에서 선언하면 될 것 같습니다. 수정부탁드리겠습니다.*/
-// 		               BookPlay bookPlay = new BookPlay();
-// 		               while(true) {
-// 		               System.out.println("[1]추가 [2삭제 [3]대출 [4]반납 [5]도서검색 [0]돌아가기");
-// 		               int select = sc.nextInt();
-// 		               switch(select){
-// 		               case 1 :
-// 		                  bookPlay.addBook();
-// 		                  break;
-// 		               case 2:
-// 		                  bookPlay.deleteBook();
-// 		                  break;
-// 		               case 3:
-// 		                  bookPlay.rendBook();
-// 		                  break;
-// 		               case 4:
-// 		                  bookPlay.backBook();
-// 		                  break;
-// 		               case 5:
-// 		            	   bookPlay.searchMenu();		            	   
-// 		            	   break;
-// 		               case 0:
-// 		                  break;
-// 		               }
-// 		               }
-		          
-// 		            }
-
 					userPlay.managerLogin(); //사서 로그인 메소드 호출
 					managerMenu(); //사서 로그인하고나면 managerMenu페이지로 가야 함
 					break;      
 				}
-
 				case "0" : {
 					System.out.println("프로그램이 종료됩니다.");
 					sc.close();
 					System.exit(0);
 				}
-				default: continue;
+				default : continue;
 			}
 		} while(true);		
-	} //main method(초기화면) 종료
+	} //beginningPage(초기화면) 메소드 종료
 
 	
 /** 여기부터 일반회원메뉴 메소드 */
@@ -84,12 +60,12 @@ public class Main {
 					break;
 				}
 				case "0" : {
-					return; //초기화면으로 돌아가기
+					beginningPage(); //초기화면으로 돌아가기
 				}
-				default: continue;
+				default : continue;
 			}
 		} while(true);
-	} //membersMenu(일반회원메뉴)메소드 종료
+	} //membersMenu(일반회원메뉴) 메소드 종료
 	
 	
 	static void logInMenu() { //일반회원메뉴-로그인메뉴(로그인하면 이용할 수 있는 메뉴) 출력	
@@ -110,7 +86,7 @@ public class Main {
 					userPlay.logOut(); //로그아웃 메소드 호출
 					membersMenu(); //로그아웃하면 membersMenu페이지로 가야 함
 				}
-				default: continue;
+				default : continue;
 			}
 		} while(true);
 	} //logInMenu(로그인메뉴)메소드 종료
@@ -135,7 +111,7 @@ public class Main {
 					logInMenu(); //logInMenu(로그인메뉴) 메소드 호출
 					break;
 				}
-				default: continue;
+				default : continue;
 			}
 		} while(true);
 	} //myPage(마이페이지)메소드 종료
@@ -174,12 +150,13 @@ public class Main {
 					break;
 				}
 				case "0" : {
-					return; //초기화면으로 돌아가기
+					beginningPage(); //초기화면으로 돌아가기
 				}
-				default: continue;
+				default : continue;
 			}
 		} while(true);		
 	} //managerMenu(사서메뉴)메소드 종료
 /** 여기까지 사서메뉴 메소드 */	
+
 	
 } //main class종료
