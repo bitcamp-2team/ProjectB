@@ -29,10 +29,6 @@ private String bTitle;
 
 	public BookVo() {};  //기본생성자
 
-	
-	public String getbTitle() { return bTitle; }
-	public void setbTitle(String bTitle) { this.bTitle = bTitle; }
-
 	public String getbTitle() {return bTitle;	}
 	public void setbTitle(String bTitle) {this.bTitle = bTitle;	}
   

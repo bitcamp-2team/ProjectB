@@ -10,7 +10,7 @@ public class BookPlay implements Book {
 	Scanner sc = new Scanner(System.in);
 	int num = 0;		//도서 번호
 	
-	 private ArrayList<BookVo> booklist; = new ArrayList<>(); 
+	 private ArrayList<BookVo> booklist = new ArrayList<>(); 
 	
 
 	@Override
@@ -57,7 +57,7 @@ public class BookPlay implements Book {
             int check = sc.nextInt();
             
             if (check == 1) {
-            	BookList.add(bookVo);
+            	booklist.add(bookVo);
                 num++;						//도서번호에 1씩 증가하는 번호 부여
                 bookVo.setbNum(num);
                 System.out.println(bookVo.getbNum() + "/" + bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +
@@ -83,13 +83,13 @@ public class BookPlay implements Book {
 	            System.out.println("삭제 할 도서 제목을 입력해주세요");
 	            name = sc.nextLine();
 	            int cnt = 0;
-	            for (int i = 0; i < BookList.size(); i++) {
-	                if (name.equals(BookList.get(i).getbTitle())) {
-	                	System.out.println(BookList.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
+	            for (int i = 0; i < booklist.size(); i++) {
+	                if (name.equals(booklist.get(i).getbTitle())) {
+	                	System.out.println(booklist.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
 	                	System.out.println("[YES]1 / [NO]2 / [돌아가기]0");
 	                	int select = sc.nextInt();
 	                	if(select == 1) {
-	                		BookList.remove(i);
+	                		booklist.remove(i);
 		                    cnt++;
 		                    System.out.println("도서 삭제 완료");
 		                    sc.nextLine();
@@ -172,6 +172,10 @@ public class BookPlay implements Book {
 	    return true;
 	  }
 	  return false;
+	}
+
+	@Override
+	public void printBookMenu() {
 	}
 	}
 	 
