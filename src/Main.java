@@ -22,9 +22,32 @@ public class Main {
 					break;
         }
 				case "2":{
-					//사서메뉴 출력 메소드 호출
-					break;      
-				}
+		               BookPlay bookPlay = new BookPlay();
+		               while(true) {
+		               System.out.println("[1]추가 [2삭제 [3]대출 [4]반납 [5]도서검색 [0]돌아가기");
+		               int select = sc.nextInt();
+		               switch(select){
+		               case 1 :
+		                  bookPlay.addBook();
+		                  break;
+		               case 2:
+		                  bookPlay.deleteBook();
+		                  break;
+		               case 3:
+		                  bookPlay.rendBook();
+		                  break;
+		               case 4:
+		                  bookPlay.backBook();
+		                  break;
+		               case 5:
+		            	   bookPlay.searchMenu();		            	   
+		            	   break;
+		               case 0:
+		                  break;
+		               }
+		               }
+		          
+		            }
 				case "0" : {
 					sc.close();
 					System.exit(0);

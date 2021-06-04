@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class BookPlay implements Book {
-
+	
 	
 	final String SUCCESS = "일치하는도서를 출력합니다.";
 	final String FAIL = "일치하는 도서가 없습니다. 다시 입력해주세요.";
@@ -13,12 +13,10 @@ public class BookPlay implements Book {
 	final String MENU = "\n<<<도서검색 메뉴입니다.>>>"; 
 
 
-	BookVo bookVo = new BookVo();
 	Scanner sc = new Scanner(System.in);
 	int num = 0;		//도서 번호
 	
-
-	ArrayList<BookVo> booklist = new ArrayList<>(); 
+	static ArrayList<BookVo> booklist = new ArrayList<>(); 
 
 	// 도서검색 메뉴
 	@Override
@@ -71,23 +69,23 @@ public class BookPlay implements Book {
   
 	@Override
 	public void searchForNum() {
-//		System.out.print("도서번호로 검색합니다.\n번호 입력 : ");
-//		String BookNum = sc.next();	
-//		for(int i = 0; i < booklist.size(); i++) {
-//				BookVo a = booklist.get(i);
-//				int num = a.getbNum(); 
-//				if(BookNum.equalsIgnoreCase(num)) {
-//					System.out.println(SUCCESS);
-//					System.out.println("제목 : " + a.getbTitle());
-//					System.out.println("저자 : " + a.getbAuthor());
-//					System.out.println("출판사 : " + a.getbPublisher());
-//					System.out.println("번호 : " + a.getbNum());
-//					System.out.println("재고 : " + a.getbStock());
-//					break;
-//				} else if(i == booklist.size()-1) {
-//					System.out.println(FAIL);
-//				}
-//		}
+		System.out.print("도서번호로 검색합니다.\n번호 입력 : ");
+		String BookNum = sc.next();	
+		for(int i = 0; i < booklist.size(); i++) {
+				BookVo a = booklist.get(i);
+				int num = a.getbNum(); 
+				if(BookNum.equalsIgnoreCase(num)) {
+					System.out.println(SUCCESS);
+					System.out.println("제목 : " + a.getbTitle());
+					System.out.println("저자 : " + a.getbAuthor());
+					System.out.println("출판사 : " + a.getbPublisher());
+					System.out.println("번호 : " + a.getbNum());
+					System.out.println("재고 : " + a.getbStock());
+					break;
+				} else if(i == booklist.size()-1) {
+					System.out.println(FAIL);
+				}
+		}
 	}
 	
 	@Override
@@ -150,8 +148,10 @@ public class BookPlay implements Book {
 	//도서 등록
 	@Override
 	public void addBook() {
-		BookVo bookVo = new BookVo();
+		
 		while (true) {
+			BookVo bookVo = new BookVo();
+			System.out.println("<<도서 등록>>");
             System.out.println("책 제목 :");
             bookVo.setbTitle(sc.next());
             System.out.println("작가: ");
@@ -159,17 +159,12 @@ public class BookPlay implements Book {
             System.out.println("출판사 :");
             bookVo.setbPublisher(sc.next());
             System.out.println("수량 :");
-            while (!sc.hasNextInt()) { //값이 숫자인지 판별
-                sc.next();  //값이 숫자가 아니면 버린다.
+            while (!sc.hasNextInt()) { 					//값이 숫자인지 판별
+                sc.next();  							//값이 숫자가 아니면 버린다.
                 System.err.print("숫자만 입력해주세요. \n다시입력 수량: ");
             }
-            bookVo.setbStock(sc.nextInt());
-            //위에서 값이 숫자일 경우 이쪽으로 값을 넣어준다.
-
-
-//            System.out.println("수량 :");
-//            int count = sc.nextInt();
-//            bookVo.setbStock(count);
+            bookVo.setbStock(sc.nextInt());				//위에서 값이 숫자일 경우 이쪽으로 값을 넣어준다.
+            
  
             /**확인하기*/
             System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +bookVo.getbStock());            
@@ -202,11 +197,12 @@ public class BookPlay implements Book {
 	@Override
 	public void deleteBook() {
 		String name;
+        sc.nextLine();
 		 while (true) {
 	            System.out.println("삭제 할 도서 제목을 입력해주세요");
 	            name = sc.nextLine();
 	            int cnt = 0;
-	            for (int i = 0; i < booklist.size() -1; i++) {
+	            for (int i = 0; i < booklist.size(); i++) {
 	                if (name.equals(booklist.get(i).getbTitle())) {
 	                	System.out.println(booklist.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
 	                	System.out.println("[YES]1 / [NO]2 / [돌아가기]0");
@@ -219,6 +215,8 @@ public class BookPlay implements Book {
 		                    break;
 	                	}else if(select == 2) {
 	                		System.out.println("다시 입력하세요");
+	                		sc.nextLine();
+	                		cnt++;
 	                		break;
 	                	}else {
 	                		System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
