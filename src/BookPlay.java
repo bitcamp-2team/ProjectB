@@ -20,7 +20,7 @@ public class BookPlay implements Book {
 	// 도서검색 메뉴
 	@Override
 	public void searchMenu() {	
-			System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.전체조회");
+			System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.전체조회 6.도서등록");
 			int menu = sc.nextInt();
 			switch(menu) {
 				case 1:
@@ -37,6 +37,9 @@ public class BookPlay implements Book {
 					break;
 				case 5:
 					showBookInfo();
+					break;
+				case 6:
+					addBook();
 					break;
 				default:
 					System.out.println("메뉴에 있는 번호 입력해주세요");
@@ -153,11 +156,11 @@ public class BookPlay implements Book {
 	public void addBook() {
 		while (true) {
             System.out.println("책 제목 :");
-            bookVo.setbTitle(sc.nextLine());
+            bookVo.setbTitle(sc.next());
             System.out.println("작가: ");
-            bookVo.setbAuthor(sc.nextLine());
+            bookVo.setbAuthor(sc.next());
             System.out.println("출판사 :");
-            bookVo.setbPublisher(sc.nextLine());
+            bookVo.setbPublisher(sc.next());
             System.out.println("수량 :");
             bookVo.setbStock(sc.nextInt());
  
