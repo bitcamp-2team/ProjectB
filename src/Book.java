@@ -1,9 +1,6 @@
  public interface Book {
 	
 
-	 /** 메뉴출력*/
-	void printBookMenu();
-
 	/** 1.검색기능 4종 [1.도서제목,2.책번호,3.출판사,4.저자]*/
 	void searchMenu(); 
 	void searchForName();
