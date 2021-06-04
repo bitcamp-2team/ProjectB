@@ -1,18 +1,30 @@
 
 public class BookVo {
-	String bTitle;		// 도서제목
-	static int bNum;	// 도서번호 static int로 변경
-	String bAuthor;		// 도서저자
-	String bPublisher;	// 도서출판사
-	int bStock;			// 도서재고
+private String bTitle;
+	private static int bNum;
+	private String bAuthor;
+	private String bPublisher;
+	private int bStock;
+	private boolean Loaned;  
+	boolean equals(String id) {
+		  if (this.bNum==Integer.parseInt(id)) {
+		   return true;}
+		  else {
+		   return false;}
+		 }
 	
 	public BookVo(String bTitle, int bNum, String bAuthor, String bPublisher, int stock) {
+
 		super();
 		this.bTitle = bTitle;
 		this.bNum = bNum;
 		this.bAuthor = bAuthor;
 		this.bPublisher = bPublisher;
-		this.bStock = stock;
+
+		this.bStock = bStock;
+		this.Loaned=Loaned;
+		
+
 	}
 
 	public BookVo() {};  //기본생성자
@@ -20,7 +32,10 @@ public class BookVo {
 	
 	public String getbTitle() { return bTitle; }
 	public void setbTitle(String bTitle) { this.bTitle = bTitle; }
-	
+
+	public String getbTitle() {return bTitle;	}
+	public void setbTitle(String bTitle) {this.bTitle = bTitle;	}
+  
 	public int getbNum() { return bNum; }
 	public void setbNum(int num) { this.bNum = num; }
 	
@@ -32,4 +47,9 @@ public class BookVo {
 	
 	public int getbStock() { return bStock; }
 	public void setbStock(int bStock) { this.bStock = bStock; }
+  
+  public boolean isLoaned() {return Loaned; }
+
+		 public void setLoaned(boolean Loaned) { this.Loaned = Loaned; }
 }
+
