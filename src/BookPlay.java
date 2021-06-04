@@ -10,9 +10,12 @@ public class BookPlay implements Book {
 	Scanner sc = new Scanner(System.in);
 	int num = 0;		//도서 번호
 	
-	 private ArrayList<BookVo> booklist = new ArrayList<>(); 
-	
 
+	 private ArrayList<BookVo> booklist = new ArrayList<>();
+	@Override
+	public void printBookMenu(){
+	}
+	
 	@Override
 	public void searchMenu() {	
 	}
@@ -21,9 +24,9 @@ public class BookPlay implements Book {
 	public void searchForName() {
 	}
 	@Override
-	public void searchForNum() {
+	public void searchForNum(){
 	}
-		
+	
 	@Override
 	public void searchForAuthor() {
 	}
