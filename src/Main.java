@@ -22,19 +22,22 @@ public class Main {
 					break;
         }
 				case "2":{
-					//사서메뉴 출력 메소드 호출
+					userPlay.managerLogin(); //사서 로그인 메소드 호출
+					managerMenu(); //사서 로그인하고나면 managerMenu페이지로 가야 함
 					break;      
 				}
 				case "0" : {
+					System.out.println("프로그램이 종료됩니다.");
 					sc.close();
 					System.exit(0);
 				}
 				default: continue;
 			}
 		} while(true);		
-	} //main method종료
+	} //main method(초기화면) 종료
 
 	
+/** 여기부터 일반회원메뉴 메소드 */
 	static void membersMenu() { //일반회원메뉴 출력	
 		do {	
 			System.out.println(MENU + "1.회원가입  2.로그인  0.초기메뉴");
@@ -91,7 +94,7 @@ public class Main {
 			String input = sc.next();
 			switch(input) {
 				case "1" : {
-					userPlay.viewRentalBooks(); //대여목록보기 메소드 호출
+					userPlay.viewRentalBooks(); //대여목록보기 메소드 호출 
 					break;
 				}
 				case "2" : {
@@ -107,18 +110,47 @@ public class Main {
 			}
 		} while(true);
 	} //myPage(마이페이지)메소드 종료
-		
-	
-// 사서쪽 메뉴 아직 안함...	
-//	초기화면에서 2.사서 선택하면
-//	사서 로그인!!!!
-//	로그인 하면 사서메뉴 나옴
-//	사서메뉴 1. 도서 검색  2. 도서 등록/삭제  3. 대여/반납  4.사용종료
-//	4.사용종료하면 초기화면으로 가야 함
+/** 여기까지 일반회원메뉴 메소드 */
 
-	
-	
-	
-	
+
+/** 여기부터 사서메뉴 메소드 */	
+	static void managerMenu() { //사서메뉴 출력	
+		do {	
+			System.out.println(MENU + "1. 도서 전체목록 보기  2.도서 검색  3.도서 등록  4.도서 삭제  5.도서 대여처리  6.도서 반납처리  0.사서모드 종료");
+			System.out.print(PROMPT);
+			String input = sc.next();
+			switch(input) {
+				case "1" : {
+					bookPlay.showBookInfo(); //도서 전체목록 보기 메소드 호출
+					break;
+				}
+				case "2" : {
+					bookPlay.searchMenu(); //도서검색 메소드 호출
+					break;
+				}
+				case "3" : {
+					bookPlay.addBook(); //도서등록 메소드 호출
+					break;
+				}
+				case "4" : {
+					bookPlay.deleteBook(); //도서삭제 메소드 호출
+					break;
+				}
+				case "5" : {
+					bookPlay.rendBook(); //도서 대여처리 메소드 호출
+					break;
+				}
+				case "6" : {
+					bookPlay.backBook(); //도서 반납처리 메소드 호출
+					break;
+				}
+				case "0" : {
+					return; //초기화면으로 돌아가기
+				}
+				default: continue;
+			}
+		} while(true);		
+	} //managerMenu(사서메뉴)메소드 종료
+/** 여기까지 사서메뉴 메소드 */	
 	
 } //main class종료
