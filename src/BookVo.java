@@ -1,5 +1,6 @@
 
 public class BookVo {
+
 	private String bTitle;
 	private static int bNum;
 	private String bAuthor;
@@ -18,18 +19,25 @@ public class BookVo {
 	
 	/** 생성자 알맞게 수정하세요*/
 	public BookVo(String bTitle, int bNum, String bAuthor, String bPublisher, int bStock,boolean Loaned) {
+
 		super();
 		this.bTitle = bTitle;
 		this.bNum = bNum;
 		this.bAuthor = bAuthor;
 		this.bPublisher = bPublisher;
+
 		this.bStock = bStock;
 		this.Loaned=Loaned;
 		
+
 	}
+
 	public BookVo() {};  //기본생성자
+
 	
-	
+	public String getbTitle() { return bTitle; }
+	public void setbTitle(String bTitle) { this.bTitle = bTitle; }
+
 	/** getter,setter */
 	public String getbTitle() {
 		return bTitle;
@@ -69,3 +77,4 @@ public class BookVo {
 		  this.Loaned = Loaned;
 		 }
 }
+

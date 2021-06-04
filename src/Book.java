@@ -1,6 +1,6 @@
-
  public interface Book {
 	
+
 	 /** 메뉴출력*/
 	void printBookMenu();
 
@@ -25,4 +25,5 @@
 	
 	/**  6. 도서 반납*/
 	void backBook();
-}
+
+	

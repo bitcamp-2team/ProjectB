@@ -23,36 +23,6 @@ public class UserPlay implements User {
 	public UserPlay() {
 		adminUser();
 	}
-
-	/** ----------------임시 사용 (삭제 예정)-------------------------*/
-	public void mainMenu() {
-		do {
-			try {
-				System.out.println(MENU + "1.회원가입  2.로그인   0.초기메뉴");
-				int input = sc.nextInt();
-
-				switch (input) {
-				case 1: {
-					join(); // 회원가입 메서드
-					break;
-				}
-				case 2: {
-					logIn(); // 로그인 메서드
-					break;
-				}
-				case 0: {
-					System.out.println(SYSTEM + "초기메뉴로 돌아갑니다.");
-					return;
-				}
-				}
-			} catch (InputMismatchException e) {
-				sc.next();
-				continue;
-			}
-		} while (true);
-	}
-	/** ----------------임시 사용 (삭제 예정)-------------------------*/
-	
 	
 	@Override
 	public void join() {
