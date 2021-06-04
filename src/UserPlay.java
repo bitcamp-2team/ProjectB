@@ -265,7 +265,7 @@ public class UserPlay implements User {
 				}	
 			}while(true);
 		}// Y입력시 종료
-		return -1;
+		return -1;  //-1이면 logInMenu메뉴로 이동
 	}//withdrawal 메서드 종료
 	
 	
