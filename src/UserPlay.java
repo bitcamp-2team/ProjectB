@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+
 
 public class UserPlay implements User {
 
@@ -14,6 +17,9 @@ public class UserPlay implements User {
 	Scanner sc = new Scanner(System.in);
 
 	static ArrayList<UserVo> userList = new ArrayList<>(); // 유저 리스트
+	
+	static UserVo logInUser = null;
+	
 	
 	public static void adminUser() {
 		UserVo adminUser = new UserVo("admin", "1234", "admin", "010-1234-1234"); //관리자 계정
@@ -178,7 +184,55 @@ public class UserPlay implements User {
 
 	@Override
 	public void logIn() {
+		int countFaile = 0;
+		do {
+			System.out.println("ID>>");
+			String inputId = sc.next();
+			boolean idFlag = false;
+			for (UserVo data : userList) {
+				if ((data.getId().equals(inputId))) { // id가 있으면
+					idFlag = true;
+					logInUser = data; // id가 일치하면 pw를 정보를 불러올 인덱스 설정
+					break;
+				}
+			}
+			if (idFlag == false) { // id가 없으면
+				System.out.println(FAILE + "없는 ID입니다.");
+				continue;
+			}
+
+			System.out.println("PW>>");
+			String inputPw = sc.next();
+
+			if (logInUser.getPw().equals(inputPw)) {
+				System.out.println(SUCCESS + "로그인 성공~!!");
+				break;
+			} else {
+				System.out.println(FAILE + "비밀번호가 일치하지 않습니다.");
+				countFaile++;
+				System.out.println(SYSTEM + "입력오류 횟수: " + countFaile);
+				if (countFaile == 5) {
+					try {
+						System.out.println(SYSTEM + "10초 동안 입력을 제한합니다. 10초뒤 시도하세요.");
+						TimeUnit.SECONDS.sleep(10);
+					} catch (InterruptedException e) {
+						System.out.println(e);
+					}
+				}
+				if (countFaile == 10) {
+					try {
+						System.out.println(SYSTEM + "20초 동안 입력을 제한합니다. 20초뒤 시도하세요.");
+						TimeUnit.SECONDS.sleep(20);
+					} catch (InterruptedException e) {
+						System.out.println(e);
+					}
+				}
+				continue;
+			}
+
+		} while (true);
 	}
+
 
 	@Override
 	public void viewRentalBooks() {
@@ -191,4 +245,24 @@ public class UserPlay implements User {
 	@Override
 	public void withdrawal() {
 	}
+	
+	public void managerLogin() {
+		Scanner sc = new Scanner(System.in);
+		int secret = 1234; // 사서 보안코드
+
+		System.out.println("\n사서 로그인");
+		
+			
+
+			System.out.println("사서 보안코드 4자리를 입력하세요.");
+			if (secret != sc.nextInt()) {
+				System.out.println("코드가 일치하지 않아 프로그램을 종료합니다.");
+				sc.close();
+				System.exit(0);
+			} else {
+				/*사서 메뉴 출력
+				*/
+			}
+	
+	} //사서 로그인 끝
 }//UserPlay class 끝 
