@@ -1,7 +1,7 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -211,31 +211,55 @@ public class UserPlay implements User {
 
 	@Override
 	public void logIn() {
-		System.out.println("\n유저 로그인...");
-		String id, pw;
-
-		try {
-			System.out.print("아이디 ? ");
-			id = sc.next().trim();			//회원가입 코드에 next().trim()을 사용하여 통일하였음
-
-			System.out.print("패스워드 ? ");
-			pw = sc.next().trim();
-
-			UserVo vo = readUser(id);
-
-			if (vo != null) { // 일치하는 id가 있으면
-				if (vo.getPw().equals(pw)) { // pw를 입력한 pw와 비교해라
-					uservo = vo; // 일치하면 현재 로그인 상태로 입력
-					System.out.println("로그인을 성공하였습니다.");
-					return;
+		int countFaile = 0;
+		do {
+			System.out.println("ID>>");
+			String inputId = sc.next();
+			boolean idFlag = false;
+			for (UserVo data : userList) {
+				if ((data.getId().equals(inputId))) { // id가 있으면
+					idFlag = true;
+					logInUser = data; // id가 일치하면 pw를 정보를 불러올 인덱스 설정
+					break;
 				}
-			} else {  //pw가 일치하지 않으면 
-				System.out.println("아이디 또는 패스워드가 일치하지 않습니다.\n");
-			} // logIn종료
-		}catch (IOException e) {
-			System.out.println(e.toString());
-		}
+			}
+			if (idFlag == false) { // id가 없으면
+				System.out.println(FAILE + "없는 ID입니다.");
+				continue;
+			}
+
+			System.out.println("PW>>");
+			String inputPw = sc.next();
+
+			if (logInUser.getPw().equals(inputPw)) {
+				System.out.println(SUCCESS + "로그인 성공~!!");
+				break;
+			} else {
+				System.out.println(FAILE + "비밀번호가 일치하지 않습니다.");
+				countFaile++;
+				System.out.println(SYSTEM + "입력오류 횟수: " + countFaile);
+				if (countFaile == 5) {
+					try {
+						System.out.println(SYSTEM + "10초 동안 입력을 제한합니다. 10초뒤 시도하세요.");
+						TimeUnit.SECONDS.sleep(10);
+					} catch (InterruptedException e) {
+						System.out.println(e);
+					}
+				}
+				if (countFaile == 10) {
+					try {
+						System.out.println(SYSTEM + "20초 동안 입력을 제한합니다. 20초뒤 시도하세요.");
+						TimeUnit.SECONDS.sleep(20);
+					} catch (InterruptedException e) {
+						System.out.println(e);
+					}
+				}
+				continue;
+			}
+
+		} while (true);
 	}
+
 
 	@Override
 	public void viewRentalBooks() {
