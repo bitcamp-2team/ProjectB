@@ -243,16 +243,26 @@ public class UserPlay implements User {
 	}
 
 	@Override
-	public void withdrawal() {
+	public int withdrawal() {
 		System.out.println("회원탈퇴를 하시겠습까?[Y/N]");
 		System.out.println(PROMPT);
-		if("Y".equalsIgnoreCase(sc.next())) {
-			for (UserVo userList : userList) {
-				if(userList.getId().equals(logInUser.getId())) {
-					this.userList.remove(userList);
+		if("Y".equalsIgnoreCase(sc.next())) { // Y입력확인
+			System.out.println("비밀번호를 입력하세요.");
+			System.out.println(PROMPT);
+			if(sc.next().equals(logInUser.getPw())) {  //입력 비번과 로그인 유저의 비번확인
+				for (UserVo checkId : userList) {
+					if(checkId.getId().equals(logInUser.getId())) {
+						userList.remove(checkId);
+						System.out.println("탈퇴되었습니다. 감사합니다.");
+						return 1; // 1이면 membersMenu메뉴로 이동
+					}
 				}
+			}else {
+				System.out.println("비밀번호가 틀렸습니다.");
+				return -1;  //-1이면 logInMenu로 이동
 			}
-		}
+		}// Y입력확인 종료
+		return -1;
 	}//withdrawal 메서드 종료
 	
 	
