@@ -71,23 +71,23 @@ public class BookPlay implements Book {
   
 	@Override
 	public void searchForNum() {
-		System.out.print("도서번호로 검색합니다.\n번호 입력 : ");
-		String BookNum = sc.next();	
-		for(int i = 0; i < booklist.size(); i++) {
-				BookVo a = booklist.get(i);
-				int num = a.getbNum(); 
-				if(BookNum.equalsIgnoreCase(num)) {
-					System.out.println(SUCCESS);
-					System.out.println("제목 : " + a.getbTitle());
-					System.out.println("저자 : " + a.getbAuthor());
-					System.out.println("출판사 : " + a.getbPublisher());
-					System.out.println("번호 : " + a.getbNum());
-					System.out.println("재고 : " + a.getbStock());
-					break;
-				} else if(i == booklist.size()-1) {
-					System.out.println(FAIL);
-				}
-		}
+//		System.out.print("도서번호로 검색합니다.\n번호 입력 : ");
+//		String BookNum = sc.next();	
+//		for(int i = 0; i < booklist.size(); i++) {
+//				BookVo a = booklist.get(i);
+//				int num = a.getbNum(); 
+//				if(BookNum.equalsIgnoreCase(num)) {
+//					System.out.println(SUCCESS);
+//					System.out.println("제목 : " + a.getbTitle());
+//					System.out.println("저자 : " + a.getbAuthor());
+//					System.out.println("출판사 : " + a.getbPublisher());
+//					System.out.println("번호 : " + a.getbNum());
+//					System.out.println("재고 : " + a.getbStock());
+//					break;
+//				} else if(i == booklist.size()-1) {
+//					System.out.println(FAIL);
+//				}
+//		}
 	}
 	
 	@Override
@@ -159,7 +159,17 @@ public class BookPlay implements Book {
             System.out.println("출판사 :");
             bookVo.setbPublisher(sc.next());
             System.out.println("수량 :");
+            while (!sc.hasNextInt()) { //값이 숫자인지 판별
+                sc.next();  //값이 숫자가 아니면 버린다.
+                System.err.print("숫자만 입력해주세요. \n다시입력 수량: ");
+            }
             bookVo.setbStock(sc.nextInt());
+            //위에서 값이 숫자일 경우 이쪽으로 값을 넣어준다.
+
+
+//            System.out.println("수량 :");
+//            int count = sc.nextInt();
+//            bookVo.setbStock(count);
  
             /**확인하기*/
             System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +bookVo.getbStock());            
