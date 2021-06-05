@@ -15,13 +15,12 @@ public class BookPlay implements Book {
 	
 	static ArrayList<BookVo> bookList = new ArrayList<>(); 
 
-
 	// 도서검색 메뉴
 	@Override
 	public void searchMenu() {	
 			outer:
 			while(true) {
-				System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.전체조회 6.도서등록 7.뒤로가기");
+				System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.전체조회 6.뒤로가기");
 				int menu = sc.nextInt();
 				switch(menu) {
 					case 1:
@@ -40,9 +39,6 @@ public class BookPlay implements Book {
 						showBookInfo();			// 도서목록조회 메서드
 						break;
 					case 6:
-						addBook();				// 도서등록 메서드
-						break;
-					case 7:
 						System.out.println("뒤로가기 성공");
 						break outer;			// Main으로 되돌아가기
 					default:
@@ -80,21 +76,19 @@ public class BookPlay implements Book {
 	@Override
 	public void searchForNum() {
 		System.out.print("도서번호로 검색합니다.\n번호 입력 : ");
-
-		int BookNum = sc.nextInt();	
-		for(int i = 0; i < bookList.size(); i++) {
+        int BookNum = sc.nextInt();
+		for(int i = 0; i <= bookList.size(); i++) {
 				BookVo a = bookList.get(i);
-				int num = a.getbNum(); 
-				if(BookNum == num) {
+				if(BookNum == a.getbNum()) {
 					System.out.println(SUCCESS);
 					System.out.println("제목 : " + a.getbTitle());
 					System.out.println("저자 : " + a.getbAuthor());
 					System.out.println("출판사 : " + a.getbPublisher());
 					System.out.println("번호 : " + a.getbNum());
 					System.out.println("재고 : " + a.getbStock());
+				} else {
+					System.out.println("등록되지 않은 도서입니다.");
 					break;
-				} else if(i == bookList.size()-1) {
-					System.out.println(FAIL);
 				}
 		}
 	}
@@ -102,48 +96,42 @@ public class BookPlay implements Book {
 	// 도서저자로 검색
 	@Override
 	public void searchForAuthor() {
-		System.out.print("도서저자로 검색합니다.\n저자 입력 : ");
+		System.out.printf("도서저자로 검색합니다.\n저자 입력 : ");
 		String BookAuthor = sc.next();	
 		for(int i = 0; i < bookList.size(); i++) {
 				BookVo a = bookList.get(i);
-				String num = a.getbAuthor(); 
-				if(BookAuthor.equalsIgnoreCase(num)) {
-					System.out.println(SUCCESS);
+				if(BookAuthor.equalsIgnoreCase(a.getbAuthor())) {
+					System.out.printf("======== %d번째 도서 ========%n", i+1);
 					System.out.println("제목 : " + a.getbTitle());
 					System.out.println("저자 : " + a.getbAuthor());
 					System.out.println("출판사 : " + a.getbPublisher());
 					System.out.println("번호 : " + a.getbNum());
 					System.out.println("재고 : " + a.getbStock());
+				} else {
+					System.out.println("등록되지않은 도서입니다.");
 					break;
-				} else if(i == bookList.size()-1) {
-					System.out.println(FAIL);
-				} 
+				}
 		}
-
 	}
 	
 	// 도서출판사로 검색
 	@Override
 	public void searchForPublisher() {
-
 		System.out.print("도서출판사로 검색합니다.\n출판사 입력 : ");
-    
 		String BookPublisher = sc.next();	
 		for(int i = 0; i < bookList.size(); i++) {
-				BookVo a = bookList.get(i);
-				String num = a.getbPublisher(); 
-
-				if(BookPublisher.equalsIgnoreCase(num)) {
-					System.out.println(SUCCESS);
-					System.out.println("제목 : " + a.getbTitle());
-					System.out.println("저자 : " + a.getbAuthor());
-					System.out.println("출판사 : " + a.getbPublisher());
-					System.out.println("번호 : " + a.getbNum());
-					System.out.println("재고 : " + a.getbStock());
-					break;
-				} else if(i == bookList.size()-1) {
-					System.out.println(FAIL);
-				}
+			BookVo a = bookList.get(i);
+        	if(BookPublisher.equalsIgnoreCase(a.getbPublisher())) {
+        		System.out.printf("======== %d번째 도서 ========%n", i+1);
+            	System.out.println("제목 : " + a.getbTitle());
+            	System.out.println("출판사 : " + a.getbPublisher());
+            	System.out.println("저자 : " + a.getbAuthor());
+            	System.out.println("번호 : " + a.getbNum());
+            	System.out.println("재고 : " + a.getbStock());
+        	} else {
+        		System.out.println("등록되지않은 도서입니다.");
+        		break;
+        	}
 		}
 	}
 	
@@ -174,10 +162,10 @@ public class BookPlay implements Book {
 
             String title = sc.next();
             
-            if(findTitle(title)) {			//중복된 도서가 있다면 입력 불가
+            if(findTitle(title)) {			// 중복된 도서가 있다면 입력 불가
             	System.out.println("중복된 도서가 있습니다.");
             	break;
-            }else {
+            } else {
             	 bookVo.setbTitle(title);
                  System.out.println("작가: ");
             }
@@ -218,7 +206,6 @@ public class BookPlay implements Book {
             }// end while
        } 
 	
-
 	private boolean findTitle(String title) {	//중복된 도서가 있는지 확인
 		for (int i = 0; i < bookList.size(); i++) {
 			   if (bookList.get(i).getbTitle().equals(title))
@@ -228,7 +215,7 @@ public class BookPlay implements Book {
 		}
 
 
-	/**도서 삭제 */
+	//도서 삭제(제목 이용)
 	@Override
 	public void deleteBook() {	
         System.out.println("<<도서 삭제 >>");
@@ -370,7 +357,7 @@ public class BookPlay implements Book {
 	  }
 	 }
 
-	 public int findListIndex(String id) {
+	public int findListIndex(String id) {
 	  for (int i = 0; i < bookList.size(); i++) {
 	   if (bookList.get(i).equals(id)){
 	    return i;
@@ -379,14 +366,12 @@ public class BookPlay implements Book {
 	  return -1;
 	 }
 
-
-	 public boolean findId(String id) {
+	public boolean findId(String id) {
 	  for (int i = 0; i < bookList.size() - 1; i++) {
 	   if (bookList.get(i).equals(id))
 	    return true;
 	  }
 	  return false;
 	}
-
 }
 	 
