@@ -275,162 +275,178 @@ public class BookPlay implements Book {
 		} while(true);	// do-while문 종료
 	}
 	//도서 등록
-	@Override
-	public void addBook() {
-		// ArrayList<BookVo> bookList = new ArrayList<>(); 
-		while (true) {
-			System.out.println("<<도서 등록>>");
-            System.out.println("책 제목 :");
+		@Override
+		public void addBook() {
+			
+			while (true) {
+				BookVo bookVo = new BookVo();
+				System.out.println("<<도서 등록>>");
+				System.out.println("[되돌아가기]: 0");
+	            System.out.println("책 제목 :");
 
-            String title = sc.next();
-            
-            if(findTitle(title)) {			// 중복된 도서가 있다면 입력 불가
-            	System.out.println("중복된 도서가 있습니다.");
-            	break;
-            } else {
-            	 bookVo.setbTitle(title);
-                 System.out.println("작가: ");
-            }
-            bookVo.setbAuthor(sc.next());
-            System.out.println("출판사 :");
-            bookVo.setbPublisher(sc.next());
-            System.out.println("수량 :");
-            while (!sc.hasNextInt()) { 					//값이 숫자인지 판별
-                sc.next();  							//값이 숫자가 아니면 버린다.
-                System.err.print("숫자만 입력해주세요. \n다시입력 수량: ");
-            }
-            bookVo.setbStock(sc.nextInt());				//위에서 값이 숫자일 경우 이쪽으로 값을 넣어준다.
-            
- 
-            /**확인하기*/
-            System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +bookVo.getbStock());            
-            System.out.println("입력하신 사항이 모두 맞습니까?");           
-            System.out.println("[YES] 1/ [NO] 2");
-            int check = sc.nextInt();
-            
-            if (check == 1) {
-            	bookList.add(bookVo);
-                num++;						//도서번호에 1씩 증가하는 번호 부여
-                bookVo.setbNum(num);
-                System.out.println("도서 번호:" + bookVo.getbNum());
-                System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +
-                		bookVo.getbStock());
-                System.out.println("등록 완료");
-                sc.nextLine();
-                break;
-            } else if (check == 2) {
-                System.out.println("다시 입력해주세요");
-                sc.nextLine();
-            } else {
-                System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
-                break; 
-            } //end if-else
-            }// end while
-       } 
-	
-	private boolean findTitle(String title) {	//중복된 도서가 있는지 확인
-		for (int i = 0; i < bookList.size(); i++) {
-			   if (bookList.get(i).getbTitle().equals(title))
-			    return true;
-			  }
-			  return false;
-		}
-
-	//도서 삭제(제목 이용)
-	@Override
-	public void deleteBook() {	
-        System.out.println("<<도서 삭제 >>");
-        System.out.println("[제목으로 삭제]1 / [도서 번호로 삭제]2");
-        int sel = sc.nextInt();
-        
-        switch(sel) {
-        case 1:
-        	deleteTitle();
-        	break;
-        case 2:
-        	deleteNum();
-        	break;
-        default:
-        	System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
-        	break;
-        }	
-	}
-	
-	/**도서 번호 이용한 도서 삭제 */
-	private void deleteNum() {
-		 int num;
-		 while (true) {
-		        sc.nextLine();
-	            System.out.println("삭제 할 도서 번호를 입력해주세요");
-	            num = sc.nextInt();
-	            int cnt = 0;
-	            for (int i = 0; i < bookList.size(); i++) {
-	                if (num == bookList.get(i).getbNum()) {
-	                	System.out.println(bookList.get(i).getbTitle() + "/" + bookList.get(i).getbAuthor() + "/" + bookList.get(i).getbPublisher() + "를 정말 삭제하겠습니까?");
-	                	System.out.println("[YES]1 / [NO]2");
-	                	int select = sc.nextInt();
-	                	if(select == 1) {
-	                		bookList.remove(i);
-		                    cnt++;
-		                    System.out.println("도서 삭제 완료");
-		                    sc.nextLine();
-		                    break;
-	                	}else if(select == 2) {
-	                		System.out.println("다시 입력하세요");
-	                		sc.nextLine();
-	                		cnt++;
-	                		break;
-	                	}else {
-	                		System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
-	                        break;
-	                	}	                		
-	                }
-	            } // end for
-	            if (cnt == 0) {
-	                System.out.println("해당 도서가 존재하지 않습니다. 다시 입력하세요.");
-	            } else {
-	                break;// 메인으로
+	            String title = sc.next();
+	            if(title.equals("0")) {break;}	//되돌아가기
+	            if(findTitle(title)) {			//중복된 도서가 있다면 입력 불가
+	            	System.out.println("중복된 도서가 있습니다.");
+	            	break;
+	            }else {
+	            	 bookVo.setbTitle(title);
+	                 System.out.println("작가: ");
 	            }
-	        } // end while
-	}
-	/**도서 제목 이용한 도서 삭제 */
-	private void deleteTitle() {
-		String name;
-		 while (true) {
-		        sc.nextLine();
-	            System.out.println("삭제 할 도서 제목을 입력해주세요");
-	            name = sc.nextLine();
-	            int cnt = 0;
-	            for (int i = 0; i < bookList.size(); i++) {
-	                if (name.equals(bookList.get(i).getbTitle())) {
-	                	System.out.println(bookList.get(i).getbTitle() + "/" + bookList.get(i).getbAuthor() + "/" + bookList.get(i).getbPublisher() + "를 정말 삭제하겠습니까?");
-	                	System.out.println("[YES]1 / [NO]2");
-	                	int select = sc.nextInt();
-	                	if(select == 1) {
-	                		bookList.remove(i);
-		                    cnt++;
-		                    System.out.println("도서 삭제 완료");
-		                    sc.nextLine();
-		                    break;
-	                	}else if(select == 2) {
-	                		System.out.println("다시 입력하세요");
-	                		sc.nextLine();
-	                		cnt++;
-	                		break;
-	                	}else {
-	                		System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
-	                        break;
-	                	}	                		
-	                }
-	            } // end for
-	            if (cnt == 0) {
-	                System.out.println("해당 도서가 존재하지 않습니다. 다시 입력하세요.");
-	            } else {
-	                break;// 메인으로
+	            bookVo.setbAuthor(sc.next());
+	            System.out.println("출판사 :");
+	            bookVo.setbPublisher(sc.next());
+	            System.out.println("수량 :");
+	            while (!sc.hasNextInt()) { 					//값이 숫자인지 판별
+	                sc.next();  							//값이 숫자가 아니면 버린다.
+	                System.err.print("숫자만 입력해주세요. \n다시입력 수량: ");
 	            }
-	        } // end while
+	            bookVo.setbStock(sc.nextInt());				//위에서 값이 숫자일 경우 이쪽으로 값을 넣어준다.
+	            
+	 
+	            /**확인하기*/
+	            System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +bookVo.getbStock());            
+	            System.out.println("입력하신 사항이 모두 맞습니까?");           
+	            System.out.println("[YES] 1/ [NO] 2 [돌아가기] 0");
+	            int check = sc.nextInt();
+	            
+	            if (check == 1) {
+	            	bookList.add(bookVo);  
+	                num++;						//도서번호에 1씩 증가하는 번호 부여
+	                bookVo.setbNum(num);
+	                System.out.println("도서 번호:" + bookVo.getbNum());
+	                System.out.println(bookVo.getbTitle() + "/" + bookVo.getbAuthor() + "/" + bookVo.getbPublisher() + "/" +
+	                		bookVo.getbStock());
+	                System.out.println("등록 완료");
+	                sc.nextLine();
+	                break;
+	            } else if (check == 2) {
+	                System.out.println("다시 입력해주세요");
+	                sc.nextLine();
+	            }else if(check == 0) {
+	            	break;
+	            } else {
+	                System.out.println("잘못 누르셨습니다. 메뉴로 이동합니다");
+	                break; 
+	            } //end if-else
+	            }// end while
+	       } 
 		
-	}
+
+		private boolean findTitle(String title) {	//중복된 도서가 있는지 확인
+			for (int i = 0; i < bookList.size(); i++) {
+				   if (bookList.get(i).getbTitle().equals(title))
+				    return true;
+				  }
+				  return false;
+			}
+
+
+		/**도서 삭제 */
+		@Override
+		public void deleteBook() {	
+	        System.out.println("<<도서 삭제 >>");
+	        System.out.println("[제목으로 삭제]1 / [도서 번호로 삭제]2 / [돌아가기] 0");
+	        int sel = sc.nextInt();
+	        
+	        
+	        switch(sel) {
+	        case 1:
+	        	deleteTitle();
+	        	break;
+	        case 2:
+	        	deleteNum();
+	        	break;
+	        case 0:						//돌아가기
+	        	break;
+	        default:
+	        	System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
+	        	break;
+	        }	
+		}
+		
+		/**도서 번호 이용한 도서 삭제 */
+		private void deleteNum() {
+			 int num;
+			 while (true) {
+			        sc.nextLine();
+		            System.out.println("삭제 할 도서 번호를 입력해주세요");
+		            num = sc.nextInt();
+		            int cnt = 0;
+		            for (int i = 0; i < bookList.size(); i++) {
+		                if (num == bookList.get(i).getbNum()) {
+		                	System.out.println(bookList.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
+		                	System.out.println("[YES]1 / [NO]2 / [돌아가기] 0");
+		                	int select = sc.nextInt();
+		                	if(select == 1) {	          
+		                		bookList.remove(i);			                  
+		                		cnt++;
+		                		System.out.println("도서 삭제 완료");			                   
+		                		sc.nextLine();			                   
+		                		break;
+		                		
+		                	}else if(select == 2) {
+		                		System.out.println("다시 입력하세요");
+		                		sc.nextLine();
+		                		cnt++;
+		                		break;
+		                	}else if(select == 0) {
+		                		cnt++;
+		                    	break;
+		                    }else {
+		                		System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
+		                        break;
+		                	}	                		
+		                }
+		            } // end for
+		            if (cnt == 0) {
+		                System.out.println("해당 도서가 존재하지 않습니다. 다시 입력하세요.");
+		            } else {
+		                break;// 메인으로
+		            }
+		        } // end while
+		}
+		/**도서 제목 이용한 도서 삭제 */
+		private void deleteTitle() {
+			String name;
+			 while (true) {
+			        sc.nextLine();
+		            System.out.println("삭제 할 도서 제목을 입력해주세요");
+		            name = sc.nextLine();
+		            int cnt = 0;
+		            for (int i = 0; i < bookList.size(); i++) {
+		                if (name.equals(bookList.get(i).getbTitle())) {
+		                	System.out.println(bookList.get(i).getbTitle() + "를 정말 삭제하겠습니까?");
+		                	System.out.println("[YES]1 / [NO]2 /[돌아가기] 0");
+		                	int select = sc.nextInt();
+		                	if(select == 1) {
+		                		bookList.remove(i);
+			                    cnt++;
+			                    System.out.println("도서 삭제 완료");
+			                    sc.nextLine();
+			                    break;
+		                	}else if(select == 2) {
+		                		System.out.println("다시 입력하세요");
+		                		sc.nextLine();
+		                		cnt++;
+		                		break;
+		                	}else if(select == 0) {
+		                		cnt++;
+		                    	break;
+		                    }else {
+		                		System.out.println("잘못 누르셨습니다. 메인 화면으로 이동합니다");
+		                        break;
+		                	}	                		
+		                }
+		            } // end for
+		            if (cnt == 0) {
+		                System.out.println("해당 도서가 존재하지 않습니다. 다시 입력하세요.");
+		            } else {
+		                break;// 메인으로
+		            }
+		        } // end while
+			
+		}
 	
 	@Override
 	 public void rendBook() {
