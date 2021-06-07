@@ -1,8 +1,9 @@
 
-import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Scanner;
 
 public class BookPlay implements Book {
 	final String SUCCESS = "일치하는도서를 출력합니다.";
@@ -14,6 +15,8 @@ public class BookPlay implements Book {
 	int num = 0;		//도서 번호
 	
 	static ArrayList<BookVo> bookList = new ArrayList<>(); 
+	static ArrayList<BookRendVo> rendBooks = new ArrayList<>();
+
 
 	// 도서검색 메뉴
 	@Override
@@ -313,28 +316,53 @@ public class BookPlay implements Book {
 	
 	@Override
 	public void rendBook() {
-		 Scanner sc = new Scanner(System.in);
-			Calendar cal =Calendar.getInstance();
-		     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		     
-	  System.out.println("대여할 책 번호를 입력하세요 : ");
-	  String bNum = sc.nextLine();
-	  int idx = findListIndex(bNum);
-	  if (idx == -1)
-	   System.out.println("등록되지 않은 번호입니다.");
-	  else {
-	   if (bookList.get(idx).isLoaned()) {
-	    System.out.println("대여중입니다.");}
-	   
-	   else {
+		
+		
+		Scanner sc = new Scanner(System.in);
+	 	Calendar cal =Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.print("대여할 책 번호를 입력하세요 : ");
+		String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
+		int idx = findListIndex(bNum);
+		System.out.print("대여자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
+		String userId = sc.nextLine();
+		
+		if (idx == -1)
+			   System.out.println("등록되지 않은 번호입니다.");
+			  else {
+			   if (bookList.get(idx).isLoaned()) {
+			    System.out.println("대여중입니다.");}
+		else {
 	    System.out.println("대여완료");
-	    System.out.println("대여일 : "+df.format(cal.getTime()));
-	    cal.add(Calendar.DATE,7);
-	    System.out.println("반납일 : "+df.format(cal.getTime()));
-	    bookList.get(idx).setLoaned(true);
-	   }
-	  }
+		// 매개변수로 받은 대출할 도서의 번호, 사용자ID, 오늘 날짜로 BookRendVo 객체를 만든다.
+		BookRendVo bookRendVo = new BookRendVo(bNum, userId, df.format(cal.getTime()));
+		
+		bookRendVo.setRendBookDate(df.format(cal.getTime()));
+		System.out.println("대여일 : "+df.format(cal.getTime()));
+		
+		cal.add(Calendar.DATE,7);
+		bookRendVo.setBackBookDate(df.format(cal.getTime()));
+		System.out.println("반납일 : "+df.format(cal.getTime()));
+		
+		rendBooks.add(bookRendVo); // BookRendVo 객체를 rendBooks 리스트에 추가한다.
+		bookList.get(idx).setLoaned(true); // 대충 대출중 이라는 뜻
+		
+		
+	  	}
 	 }
+}
+		
+
+//	   
+//	   else {
+//	    System.out.println("대여완료");
+//	    System.out.println("대여일 : "+df.format(cal.getTime()));
+//	    cal.add(Calendar.DATE,7);
+//	    System.out.println("반납일 : "+df.format(cal.getTime()));
+//	    bookList.get(idx).setLoaned(true);
+//	   }
+//	  }
+	 
 
 	@Override
 	public void backBook() {
@@ -352,6 +380,7 @@ public class BookPlay implements Book {
 	    System.out.println("반납 완료.");
 	    cal.add(Calendar.DATE,7);
 	    System.out.println("반납일 : "+df.format(cal.getTime()));
+	    
 	   } else
 	    System.out.println("대여중인 도서가 아닙니다.");
 	  }
