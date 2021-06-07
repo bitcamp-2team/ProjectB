@@ -142,7 +142,7 @@ public class Main {
 					break;
 				}
 				case "5" : {
-					bookPlay.rendBook(); //도서 대여처리 메소드 호출
+					bookPlay.rendBook(); //도서 대여처리 메소드 호출 
 					break;
 				}
 				case "6" : {

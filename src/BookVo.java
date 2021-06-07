@@ -11,7 +11,7 @@ public class BookVo {
 		  if (this.bNum==Integer.parseInt(id)) {
 		   return true;}
 		  else {
-		   return false;}
+	   return false;}
 		 }
 	
 	public BookVo(String bTitle, int bNum, String bAuthor, String bPublisher, int stock) {

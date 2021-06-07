@@ -17,7 +17,9 @@ public class UserVo {
 	}
 	public UserVo() {} // 기본생성자
 
-	
+	/*
+	 * 로그인 상태라는 상태값을 만들기
+	 * */
 	
 	/** getter,setter */
 	public String getId() {
