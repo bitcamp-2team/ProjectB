@@ -186,7 +186,7 @@ public class UserPlay implements User {
 	public void logIn() {
 		int countFaile = 0;
 		do {
-			System.out.println("ID>>");
+			System.out.print(" ID >> ");
 			String inputId = sc.next();
 			boolean idFlag = false;
 			for (UserVo data : userList) {
@@ -201,7 +201,7 @@ public class UserPlay implements User {
 				continue;
 			}
 
-			System.out.println("PW>>");
+			System.out.print("PW >> ");
 			String inputPw = sc.next();
 
 			if (logInUser.getPw().equals(inputPw)) {
@@ -240,11 +240,25 @@ public class UserPlay implements User {
 
 	@Override
 	public void logOut() {
+		do {
+			System.out.println("로그아웃 하시겠습니까?[Y/N]");
+			System.out.print(">> ");
+			String input = sc.next();
+			if(input.equalsIgnoreCase("y")) {
+				System.out.println(SUCCESS + "로그아웃 되었습니다.");
+				logInUser = null;
+				return;
+			}else if(input.equalsIgnoreCase("n")) {
+				return;
+			}
+		} while (true);
+
 	}
+	
 
 	@Override
 	public void withdrawal() {
-		System.out.println("회원탈퇴를 하시겠습까?[Y/N]");
+		System.out.println("회원탈퇴를 하시겠습니까?[Y/N]");
 		System.out.println(PROMPT);
 		if("Y".equalsIgnoreCase(sc.next())) { // Y입력시 do
 			do {
