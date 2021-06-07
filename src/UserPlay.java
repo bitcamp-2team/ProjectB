@@ -1,8 +1,12 @@
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.Calendar;
 
 
 public class UserPlay implements User {
@@ -239,8 +243,31 @@ public class UserPlay implements User {
 
 	@Override
 	public void viewRentalBooks() {
-		
+		ArrayList<BookRendVo> rendBooks = BookPlay.rendBooks;
+		ArrayList<BookVo> bookList = BookPlay.bookList;
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		System.out.printf("[%s/%s]님의 현재 대출 목록입니다.\n", logInUser.getId(), logInUser.getName());
+		System.out.printf("오늘 날짜 : %s%n", df.format(cal.getTime()));
+		System.out.println("도서등록번호/도서명/저자명/출판사명/대출일/반납일");
+		for (BookRendVo bookRendVo : rendBooks) {
+			// BookRendVo 객체가 가진 UserId가 현재 로그인 UserId와 같을 때
+			if (bookRendVo.getUserId().equals(logInUser.getId())) {
+				// bookRendVo가 가진 도서 등록번호만을 가지고 와서 book 변수에 담고
+				BookVo book = bookList.get(Integer.parseInt(bookRendVo.getbNum()));
+
+				System.out.println("도서등록번호 : " + bookRendVo.getbNum() + "\n" + "도서명 : " + book.getbTitle() + "\n"
+						+ "저자명 : " + book.getbAuthor() + "\n" + "출판사명 : " + book.getbPublisher() + "\n" + "대출일 : "
+						+ bookRendVo.getRendBookDate() + "\n" + "반납일 : " + bookRendVo.getBackBookDate() + "\n");
+
+			} else {
+				return;
+			}
+		}
 	}
+
+	
 	
 	@Override
 	public void logOut() {

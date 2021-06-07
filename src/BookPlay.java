@@ -14,7 +14,7 @@ public class BookPlay implements Book {
 	int num = 0;		//도서 번호
 	
 	static ArrayList<BookVo> bookList = new ArrayList<>(); 
-	 ArrayList<BookRendVo> rendBooks = new ArrayList<BookRendVo>();
+	 static ArrayList<BookRendVo> rendBooks = new ArrayList<BookRendVo>();
 	 
 	// 도서검색 메뉴
 	@Override
@@ -312,6 +312,7 @@ public class BookPlay implements Book {
 	
 	@Override
 	 public void rendBook() {
+	      BookRendVo userid = new BookRendVo();
 	      
 	      Scanner sc = new Scanner(System.in);
 	      Calendar cal =Calendar.getInstance();
@@ -320,14 +321,18 @@ public class BookPlay implements Book {
 	      System.out.print("대여할 책 번호를 입력하세요 : (0.뒤로가기)");
 	      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
 	      int idx = findListIndex(bNum);
-	      if (bNum.equals("0")) {
-				return;
-				}
-	      System.out.print("대여자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
-	      String userId = sc.nextLine();
 	      
+	      if (bNum.equals("0")) {
+				System.out.println("뒤로 가기 성공");
+				return;
+				}  //0 누르면 되돌아가기
+	      
+	      System.out.print("대여자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
+	      String userId = sc.next();
+	      userid.getUserId();
+	        	  
 	      if (idx == -1)
-	            System.out.println("등록되지 않은 번호입니다.");
+	            System.out.println("등록되지 않은 책번호입니다.");
 	           else {
 	            if (bookList.get(idx).isLoaned()) {
 	             System.out.println("대여중입니다.");}
@@ -354,7 +359,8 @@ public class BookPlay implements Book {
 	      
 	@Override
 	public void backBook() {
-
+		 BookRendVo userid = new BookRendVo();
+		 
 		 Scanner sc = new Scanner(System.in);
 			Calendar cal =Calendar.getInstance();
 		     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -362,11 +368,14 @@ public class BookPlay implements Book {
 		      System.out.print("반납할 책 번호를 입력하세요 : (0.뒤로가기)");
 		      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
 		      int idx = findListIndex(bNum);
-		      if (bNum.equals("0")) {
-					return;
-		      }
+		      
+		      if (bNum.equals("0")) {  //0누르면 되돌아가기
+					System.out.println("뒤로 가기 성공");
+		    	  return;}
+		      
 		      System.out.print("반납자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
 		      String userId = sc.nextLine();
+		      userid.getUserId();
 		      
 		      if (idx == -1) {
 		            System.out.println("등록되지 않은 번호입니다.");}
