@@ -15,6 +15,7 @@ public class BookPlay implements Book {
 	
 	static ArrayList<BookVo> bookList = new ArrayList<>(); 
 	 ArrayList<BookRendVo> rendBooks = new ArrayList<BookRendVo>();
+	 
 	// 도서검색 메뉴
 	@Override
 	public void searchMenu() {	
@@ -316,7 +317,7 @@ public class BookPlay implements Book {
 	      Calendar cal =Calendar.getInstance();
 	      SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	      
-	      System.out.print("대여할 책 번호를 입력하세요 : (0.돌아가기)");
+	      System.out.print("대여할 책 번호를 입력하세요 : (0.뒤로가기)");
 	      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
 	      int idx = findListIndex(bNum);
 	      if (bNum.equals("0")) {
@@ -355,7 +356,7 @@ public class BookPlay implements Book {
 			Calendar cal =Calendar.getInstance();
 		     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		     
-		      System.out.print("반납할 책 번호를 입력하세요 : ");
+		      System.out.print("반납할 책 번호를 입력하세요 : (0.뒤로가기)");
 		      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
 		      int idx = findListIndex(bNum);
 		      if (bNum.equals("0")) {
