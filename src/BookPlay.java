@@ -14,7 +14,7 @@ public class BookPlay implements Book {
 	int num = 0;		//도서 번호
 	
 	static ArrayList<BookVo> bookList = new ArrayList<>(); 
-
+	 ArrayList<BookRendVo> rendBooks = new ArrayList<BookRendVo>();
 	// 도서검색 메뉴
 	@Override
 	public void searchMenu() {	
@@ -311,9 +311,6 @@ public class BookPlay implements Book {
 	
 	@Override
 	 public void rendBook() {
-	
-		
-	     ArrayList<BookRendVo> rendBooks = new ArrayList<BookRendVo>();
 	      
 	      Scanner sc = new Scanner(System.in);
 	      Calendar cal =Calendar.getInstance();
@@ -327,8 +324,6 @@ public class BookPlay implements Book {
 				}
 	      System.out.print("대여자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
 	      String userId = sc.nextLine();
-	      
-				
 	      
 	      if (idx == -1)
 	            System.out.println("등록되지 않은 번호입니다.");
@@ -349,11 +344,10 @@ public class BookPlay implements Book {
 	      
 	      rendBooks.add(bookRendVo); // BookRendVo 객체를 rendBooks 리스트에 추가한다.
 	      bookList.get(idx).setLoaned(true); // 대충 대출중 이라는 뜻
-	      
-	      
 	        }
 	    }
 	}
+	
 	@Override
 	public void backBook() {
 
@@ -367,7 +361,7 @@ public class BookPlay implements Book {
 		      if (bNum.equals("0")) {
 					return;
 					}
-		      System.out.print("대여자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
+		      System.out.print("반납자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
 		      String userId = sc.nextLine();
 		      
 		      if (idx == -1)
@@ -376,7 +370,9 @@ public class BookPlay implements Book {
 		      else {
 		       System.out.println("반납완료");
 		       System.out.println("반납일 :"+df.format(cal.getTime()));
-		     
+		       
+		       BookRendVo bookRendVo = new BookRendVo(bNum, userId, df.format(cal.getTime()));
+		       rendBooks.remove(bookRendVo);
 		        }
 		    }
 
