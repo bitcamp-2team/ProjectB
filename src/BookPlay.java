@@ -355,21 +355,35 @@ public class BookPlay implements Book {
 		 Scanner sc = new Scanner(System.in);
 			Calendar cal =Calendar.getInstance();
 		     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		     
+		     UserPlay userplay = new UserPlay(); 
+		     System.out.println("Id를 입력해주세요");
+		     String id = sc.next();
+		     
+		  for(int i=0;i<userplay.getList().size() -1;i++) {
+		       if(userplay.getList().get(i).getId().equals(id)) {
+		       
 	  System.out.println("반납할 책의 번호를 입력하세요");
 	  String bNum = sc.next();
 	  int idx = findListIndex(bNum);
-	  if (idx == -1)
+	  if (idx == -1) {
 	   System.out.println("등록되지 않은 번호입니다.");
+	  sc.nextLine();
+		       }
 	  else {
 	   if (bookList.get(idx).isLoaned()) {
 	    System.out.println("반납 완료.");
 	    cal.add(Calendar.DATE,7);
 	    System.out.println("반납일 : "+df.format(cal.getTime()));
-	   } else
+	   } else {
 	    System.out.println("대여중인 도서가 아닙니다.");
 	  }
 	 }
-
+		  }else {
+	             System.out.println("등록되지 않은 id입니다.");
+	          }
+	}}
+	
 	 public int findListIndex(String id) {
 	  for (int i = 0; i < bookList.size(); i++) {
 	   if (bookList.get(i).equals(id)){
