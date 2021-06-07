@@ -361,10 +361,6 @@ public class BookPlay implements Book {
 			Calendar cal =Calendar.getInstance();
 		     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		     
-
-	
-		     
-		     
 		      System.out.print("반납할 책 번호를 입력하세요 : ");
 		      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
 		      int idx = findListIndex(bNum);
