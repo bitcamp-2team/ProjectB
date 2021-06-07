@@ -311,63 +311,24 @@ public class BookPlay implements Book {
 	
 	@Override
 	 public void rendBook() {
-	       /*Scanner sc = new Scanner(System.in);
-	         Calendar cal =Calendar.getInstance();
-	           SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	       
-	     UserPlay userplay = new UserPlay(); 
-	     System.out.println("Id를 입력해주세요");
-	     String id = sc.next();
-	     
-	       for(int i=0;i<userplay.getList().size() -1;i++) {      //등록된 ID인지 검사 
-	          if(userplay.getList().get(i).getId().equals(id)) {
-	             System.out.println("대여할 책 번호를 입력하세요 : ");
-	             String bNum = sc.next();
-	             int idx = findListIndex(bNum);
-	             if (idx == -1) {
-	              System.out.println("등록되지 않은 번호입니다.");
-	              sc.nextLine();
-	             }
-	             else {
-	              if (bookList.get(idx).isLoaned()) {
-	               System.out.println("대여중입니다.");
-	               return;
-	               }         //menu로 돌아가야하지 않나?
-	              
-	              else {               //아이디에 대여 도서 집어넣기!!!
-	            
-	               System.out.println("대여완료");
-	               System.out.println("대여일 : "+df.format(cal.getTime()));
-	               cal.add(Calendar.DATE,7);
-	               System.out.println("반납일 : "+df.format(cal.getTime()));
-	               bookVo.setbStock(bookVo.getbStock() -1);
-	               sc.nextLine();
-	               
-	               if(bookVo.getbStock() > 0) {         //수량이 0이라면 대여중으로 바꾸기
-	                  bookList.get(idx).setLoaned(false);            
-	               }else if(bookVo.getbStock() == 0) {
-	                  bookList.get(idx).setLoaned(true);
-	               }
-	               break;
-	              }
-	             }
-	             
-	          }else {
-	             System.out.println("등록되지 않은 id입니다.");
-	          }
-	     }//end for
-	   }*/
+	
 		
-	      ArrayList<BookRendVo> rendBooks = new ArrayList<BookRendVo>();
+	     ArrayList<BookRendVo> rendBooks = new ArrayList<BookRendVo>();
 	      
 	      Scanner sc = new Scanner(System.in);
-	       Calendar cal =Calendar.getInstance();
+	      Calendar cal =Calendar.getInstance();
 	      SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	      System.out.print("대여할 책 번호를 입력하세요 : ");
+	      
+	      System.out.print("대여할 책 번호를 입력하세요 : (0.돌아가기)");
 	      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
 	      int idx = findListIndex(bNum);
+	      if (bNum.equals("0")) {
+				return;
+				}
 	      System.out.print("대여자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
 	      String userId = sc.nextLine();
+	      
+				
 	      
 	      if (idx == -1)
 	            System.out.println("등록되지 않은 번호입니다.");
@@ -400,34 +361,26 @@ public class BookPlay implements Book {
 			Calendar cal =Calendar.getInstance();
 		     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		     
-//나중에     UserPlay userplay = new UserPlay(); 
-	//	     System.out.println("Id를 입력해주세요");
-		    // String id = sc.next();
+
+	
 		     
-		//  for(int i=0;i<userplay.getList().size() -1;i++) {
-		//       if(userplay.getList().get(i).getId().equals(id)) {
-		       
-	  System.out.println("반납할 책의 번호를 입력하세요");
-	  String bNum = sc.next();
-	  int idx = findListIndex(bNum);
-	  if (idx == -1) {
-	   System.out.println("등록되지 않은 번호입니다.");
-	//  sc.nextLine();
-		       }
-	  else {
-	   if (bookList.get(idx).isLoaned()) {
-	    System.out.println("반납 완료.");
-	    cal.add(Calendar.DATE,7);
-	    System.out.println("반납일 : "+df.format(cal.getTime()));
-	   } else {
-	    System.out.println("대여중인 도서가 아닙니다.");
-	    return;
-	  }
-	 }}
-		//  }else {
-	  //           System.out.println("등록되지 않은 id입니다.");
-	//          }
-	//}}
+		     
+		      System.out.print("반납할 책 번호를 입력하세요 : ");
+		      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
+		      int idx = findListIndex(bNum);
+		      System.out.print("대여자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
+		      String userId = sc.nextLine();
+		      
+		      if (idx == -1)
+		            System.out.println("등록되지 않은 번호입니다.");
+		          
+		      else {
+		       System.out.println("반납완료");
+		       System.out.println("반납일 :"+df.format(cal.getTime()));
+		     
+		        }
+		    }
+
 	
 	 public int findListIndex(String id) {
 	  for (int i = 0; i < bookList.size(); i++) {

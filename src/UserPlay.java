@@ -239,8 +239,11 @@ public class UserPlay implements User {
 
 	@Override
 	public void viewRentalBooks() {
+		System.out.println("사용자 아이디를 입력하세요 :");
+		String userId = sc.nextLine();//유저아이디 받기
+		
+		
 	}
-
 	@Override
 	public void logOut() {
 		do {
