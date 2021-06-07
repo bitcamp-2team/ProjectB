@@ -1,38 +1,38 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-
-
 public class UserPlay implements User {
 
-	 static int userCount = 0;
-	 final String SYSTEM = "[SYSTEM] ";
-	 final String SUCCESS = "[성공] ";
-	 final String FAILE = "[실패] ";
-	 final String MENU="[MENU]"; // 메뉴 앞에
-	 final String PROMPT=">>"; 
+	static int userCount = 0;
+	final String SYSTEM = "[SYSTEM] ";
+	final String SUCCESS = "[성공] ";
+	final String FAILE = "[실패] ";
+	final String MENU = "[MENU]"; // 메뉴 앞에
+	final String PROMPT = ">>";
 
 	Scanner sc = new Scanner(System.in);
 
 	static ArrayList<UserVo> userList = new ArrayList<>(); // 유저 리스트
-	
+
 	static UserVo logInUser = null;
-	
-	
+
 	public static void adminUser() {
-		UserVo adminUser = new UserVo("admin", "1234", "admin", "010-1234-1234"); //관리자 계정
+		UserVo adminUser = new UserVo("admin", "1234", "admin", "010-1234-1234"); // 관리자 계정
 		userList.add(adminUser);
 	}
-	
+
 	public UserPlay() {
 		adminUser();
 	}
-	
+
 	@Override
 	public void join() {
-		UserVo paper = new UserVo();  //회원가입 작성지
+		UserVo paper = new UserVo(); // 회원가입 작성지
 
 		if (infoID(paper) == -1) { // ID등록을 진행하고 0입력시 종료
 			return; // 정상등록시 다음 메서드 진행됨
@@ -99,7 +99,7 @@ public class UserPlay implements User {
 				break;
 			}
 		} while (true);
-	}//infoPw 메서드 끝
+	}// infoPw 메서드 끝
 
 	private void infoCheckPw(UserVo inputInfo) {
 		do { // pw 확인
@@ -124,8 +124,8 @@ public class UserPlay implements User {
 				}
 			}
 		} while (true);
-	}//infoCheckPw 메서드 끝
-	
+	}// infoCheckPw 메서드 끝
+
 	public boolean checkPw(String pw) {
 		char[] specialChar = pw.toCharArray();
 		for (int i = 0; i < specialChar.length; i++) {
@@ -134,7 +134,7 @@ public class UserPlay implements User {
 			}
 		}
 		return false;
-	} //checkPw 메서드 끝
+	} // checkPw 메서드 끝
 
 	private int infoName(UserVo inputInfo) {
 		System.out.println("[Step.4]이름을 입력해주세요.(0.메뉴로 돌아가기)");
@@ -163,10 +163,9 @@ public class UserPlay implements User {
 			System.out.println(SUCCESS + "★★ 축하합니다. 회원가입이 완료되었습니다.  ★★");
 			return 1;
 		}
-	}//infoPhoneNum 메서드끝
+	}// infoPhoneNum 메서드끝
 
-	
-	/**---------------------자동가입 방지 추가 사항 ----------------------------- */
+	/** ---------------------자동가입 방지 추가 사항 ----------------------------- */
 	public void dependAutoSignUp() {
 		System.out.println("[자동가입 방지]아래 숫자와 동일하게 입력하세요.");
 		do {
@@ -180,7 +179,7 @@ public class UserPlay implements User {
 				System.out.println(FAILE + "불일치합니다. 다시 시도하세요.");
 			}
 		} while (true);
-	}//dependAutoSignUp 메서드 끝
+	}// dependAutoSignUp 메서드 끝
 
 	@Override
 	public void logIn() {
@@ -233,9 +232,30 @@ public class UserPlay implements User {
 		} while (true);
 	}
 
-
 	@Override
 	public void viewRentalBooks() {
+		ArrayList<BookRendVo> rendBooks = BookPlay.rendBooks;
+		ArrayList<BookVo> bookList = BookPlay.bookList;
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		System.out.printf("[%s/%s]님의 현재 대출 목록입니다.\n", logInUser.getId(), logInUser.getName());
+		System.out.printf("오늘 날짜 : %s%n", df.format(cal.getTime()));
+		System.out.println("도서등록번호/도서명/저자명/출판사명/대출일/반납일");
+		for (BookRendVo bookRendVo : rendBooks) {
+			// BookRendVo 객체가 가진 UserId가 현재 로그인 UserId와 같을 때
+			if (bookRendVo.getUserId().equals(logInUser.getId())) {
+				// bookRendVo가 가진 도서 등록번호만을 가지고 와서 book 변수에 담고
+				BookVo book = bookList.get(Integer.parseInt(bookRendVo.getbNum()));
+
+				System.out.println("도서등록번호 : " + bookRendVo.getbNum() + "\n" + "도서명 : " + book.getbTitle() + "\n"
+						+ "저자명 : " + book.getbAuthor() + "\n" + "출판사명 : " + book.getbPublisher() + "\n" + "대출일 : "
+						+ bookRendVo.getRendBookDate() + "\n" + "반납일 : " + bookRendVo.getBackBookDate() + "\n");
+
+			} else {
+				return;
+			}
+		}
 	}
 
 	@Override
@@ -244,62 +264,61 @@ public class UserPlay implements User {
 			System.out.println("로그아웃 하시겠습니까?[Y/N]");
 			System.out.print(">> ");
 			String input = sc.next();
-			if(input.equalsIgnoreCase("y")) {
+			if (input.equalsIgnoreCase("y")) {
 				System.out.println(SUCCESS + "로그아웃 되었습니다.");
 				logInUser = null;
 				return;
-			}else if(input.equalsIgnoreCase("n")) {
+			} else if (input.equalsIgnoreCase("n")) {
 				return;
 			}
 		} while (true);
 
 	}
-	
 
 	@Override
 	public void withdrawal() {
 		System.out.println("회원탈퇴를 하시겠습니까?[Y/N]");
 		System.out.println(PROMPT);
-		if("Y".equalsIgnoreCase(sc.next())) { // Y입력시 do
+		if ("Y".equalsIgnoreCase(sc.next())) { // Y입력시 do
 			do {
 				System.out.println("비밀번호를 입력하세요.(0.뒤로가기)");
 				System.out.println(PROMPT);
 				String input = sc.next();
-				if(input.equals("0")) {break;} //0. 뒤로가기
-				if(input.equals(logInUser.getPw())) {  //입력 비번과 로그인 유저의 비번확인
+				if (input.equals("0")) {
+					break;
+				} // 0. 뒤로가기
+				if (input.equals(logInUser.getPw())) { // 입력 비번과 로그인 유저의 비번확인
 					for (UserVo checkId : userList) {
-						if(checkId.getId().equals(logInUser.getId())) {
+						if (checkId.getId().equals(logInUser.getId())) {
 							userList.remove(checkId);
 							System.out.println("탈퇴되었습니다. 감사합니다.");
 							Main.membersMenu(); // 1이면 membersMenu메뉴로 이동
 						}
 					}
-				}else {
+				} else {
 					System.out.println("비밀번호가 틀렸습니다.");
-				}	
-			}while(true);
-		}// Y입력시 종료
-		return;  //-1이면 myPage메뉴로 이동
-	}//withdrawal 메서드 종료
-	
-	
+				}
+			} while (true);
+		} // Y입력시 종료
+		return; // -1이면 myPage메뉴로 이동
+	}// withdrawal 메서드 종료
+
 	public void managerLogin() {
 		Scanner sc = new Scanner(System.in);
 		int secret = 1234; // 사서 보안코드
 
 		System.out.println("\n사서 로그인");
-		
-			
 
-			System.out.println("사서 보안코드 4자리를 입력하세요.");
-			if (secret != sc.nextInt()) {
-				System.out.println("코드가 일치하지 않아 프로그램을 종료합니다.");
-				sc.close();
-				System.exit(0);
-			} else {
-				/*사서 메뉴 출력
-				*/
-			}
-	
-	} //사서 로그인 끝
-}//UserPlay class 끝 
+		System.out.println("사서 보안코드 4자리를 입력하세요.");
+		if (secret != sc.nextInt()) {
+			System.out.println("코드가 일치하지 않아 프로그램을 종료합니다.");
+			sc.close();
+			System.exit(0);
+		} else {
+			/*
+			 * 사서 메뉴 출력
+			 */
+		}
+
+	} // 사서 로그인 끝
+}// UserPlay class 끝
