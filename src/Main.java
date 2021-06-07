@@ -27,7 +27,8 @@ public class Main {
 					break;
 				}
 				case "2":{
-					userPlay.managerLogin(); //사서 로그인 메소드 호출 //사서 로그인하고나면 managerMenu페이지로 가야 함
+					userPlay.managerLogin(); //사서 로그인 메소드 호출
+					managerMenu(); //사서 로그인하고나면 managerMenu페이지로 가야 함
 					break;      
 				}
 				case "0" : {
@@ -49,11 +50,13 @@ public class Main {
 			String input = sc.next();
 			switch(input) {
 				case "1" : {
-					userPlay.join(); //회원가입 메소드 호출 //회원가입하면 membersMenu페이지로 가야함
+					userPlay.join(); //회원가입 메소드 호출
+					logInMenu(); //회원가입하면 LogInMenu페이지로 가야함
 					break;
 				}
 				case "2" : {
-					userPlay.logIn(); //로그인 메소드 호출 //로그인하면 LogInMenu페이지로 가야함
+					userPlay.logIn(); //로그인 메소드 호출
+					logInMenu(); //로그인하면 LogInMenu페이지로 가야함
 					break;
 				}
 				case "0" : {
@@ -80,8 +83,8 @@ public class Main {
 					break;
 				}
 				case "0" : {
-					userPlay.logOut(); //로그아웃 메소드 호출 //로그아웃하면 membersMenu페이지로 가야 함
-					break;
+					userPlay.logOut(); //로그아웃 메소드 호출
+					membersMenu(); //로그아웃하면 membersMenu페이지로 가야 함
 				}
 				default : continue;
 			}
@@ -100,7 +103,8 @@ public class Main {
 					break;
 				}
 				case "2" : {
-					userPlay.withdrawal(); //회원탈퇴 메소드 호출 //회원탈퇴하고나면 membersMenu페이지로 가야 함
+					userPlay.withdrawal(); //회원탈퇴 메소드 호출
+					membersMenu(); //회원탈퇴하고나면 membersMenu페이지로 가야 함
 					break;
 				}
 				case "0" : {
@@ -138,7 +142,7 @@ public class Main {
 					break;
 				}
 				case "5" : {
-					bookPlay.rendBook(); //도서 대여처리 메소드 호출
+					bookPlay.rendBook(); //도서 대여처리 메소드 호출 
 					break;
 				}
 				case "6" : {
@@ -156,3 +160,4 @@ public class Main {
 
 	
 } //main class종료
+
