@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class BookPlay implements Book {
 	final String SUCCESS = "일치하는도서를 출력합니다.";
 	final String FAIL = "일치하는 도서가 없습니다. 다시 입력해주세요.";
-	final String EMPTY = "등록된 도서가 없습니다.";
+	final String EMPTY = "등록된 도서가 없습니다. 도서를 먼저 등록해주세요.";
 	final String MENU = "\n<<<도서검색 메뉴입니다.>>>"; 
 
 	Scanner sc = new Scanner(System.in);
@@ -20,7 +20,7 @@ public class BookPlay implements Book {
 	public void searchMenu() {	
 			outer:
 			while(true) {
-				System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.전체조회 6.뒤로가기");
+				System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.뒤로가기");
 				int menu = sc.nextInt();
 				switch(menu) {
 					case 1:
@@ -36,14 +36,11 @@ public class BookPlay implements Book {
 						searchForPublisher();	// 도서출판사검색 메서드	
 						break;
 					case 5:
-						showBookInfo();			// 도서목록조회 메서드
-						break;
-					case 6:
 						System.out.println("뒤로가기 성공");
-						break outer;			// Main으로 되돌아가기
+						break outer;
 					default:
-						System.out.println("메뉴에 있는 번호 입력해주세요");
-						break;					// searchMenu() 처음으로 
+						System.out.println("메뉴에 있는 번호를 입력해주세요.");
+						break;					// searchMenu() 처음으로
 				}	// switch문 종료
 			}		// while문 종료
 	}				// searchMenu() 종료
@@ -53,6 +50,9 @@ public class BookPlay implements Book {
 	public void searchForName() {
 		System.out.print("도서제목으로 검색합니다.\n제목 입력 : ");
 		String BookTitle = sc.next();	
+		if(bookList.size() == 0) {
+			System.out.println(EMPTY);
+		}
 		for(int i = 0; i < bookList.size(); i++) {
 				BookVo a = bookList.get(i);
 				String num = a.getbTitle(); 
@@ -66,9 +66,7 @@ public class BookPlay implements Book {
 					break;
 				} else if(i == bookList.size()-1) {
 					System.out.println(FAIL);
-				} else if(bookList.equals(null)) {
-					System.out.println(EMPTY);
-				}
+				} 
 			}
 	}
 	
@@ -76,10 +74,18 @@ public class BookPlay implements Book {
 	@Override
 	public void searchForNum() {
 		System.out.print("도서번호로 검색합니다.\n번호 입력 : ");
+        while (!sc.hasNextInt()) {	// 입력받은 값이 숫자가 아닐 때 					
+            sc.next();  			// 입력받은 값 삭제				
+            System.err.print("숫자만 입력가능합니다.\n다시 입력 : ");
+        }
+        
         int BookNum = sc.nextInt();
-		for(int i = 0; i <= bookList.size(); i++) {
+        if(bookList.size() == 0) { System.out.println(EMPTY); }
+		
+        for(int i = 0; i < bookList.size(); i++) {
 				BookVo a = bookList.get(i);
-				if(BookNum == a.getbNum()) {
+				int num = a.getbNum();
+				if(BookNum == num) {
 					System.out.println(SUCCESS);
 					System.out.println("제목 : " + a.getbTitle());
 					System.out.println("저자 : " + a.getbAuthor());
@@ -87,7 +93,7 @@ public class BookPlay implements Book {
 					System.out.println("번호 : " + a.getbNum());
 					System.out.println("재고 : " + a.getbStock());
 				} else {
-					System.out.println("등록되지 않은 도서입니다.");
+					System.out.println(FAIL);
 					break;
 				}
 		}
@@ -98,6 +104,9 @@ public class BookPlay implements Book {
 	public void searchForAuthor() {
 		System.out.printf("도서저자로 검색합니다.\n저자 입력 : ");
 		String BookAuthor = sc.next();	
+		if(bookList.size() == 0) {
+			System.out.println(EMPTY);
+		}
 		for(int i = 0; i < bookList.size(); i++) {
 				BookVo a = bookList.get(i);
 				if(BookAuthor.equalsIgnoreCase(a.getbAuthor())) {
@@ -108,7 +117,7 @@ public class BookPlay implements Book {
 					System.out.println("번호 : " + a.getbNum());
 					System.out.println("재고 : " + a.getbStock());
 				} else {
-					System.out.println("등록되지않은 도서입니다.");
+					System.out.println(FAIL);
 					break;
 				}
 		}
@@ -119,6 +128,9 @@ public class BookPlay implements Book {
 	public void searchForPublisher() {
 		System.out.print("도서출판사로 검색합니다.\n출판사 입력 : ");
 		String BookPublisher = sc.next();	
+		if(bookList.size() == 0) {
+			System.out.println(EMPTY);
+		}
 		for(int i = 0; i < bookList.size(); i++) {
 			BookVo a = bookList.get(i);
         	if(BookPublisher.equalsIgnoreCase(a.getbPublisher())) {
@@ -129,7 +141,7 @@ public class BookPlay implements Book {
             	System.out.println("번호 : " + a.getbNum());
             	System.out.println("재고 : " + a.getbStock());
         	} else {
-        		System.out.println("등록되지않은 도서입니다.");
+        		System.out.println(FAIL);
         		break;
         	}
 		}
@@ -138,6 +150,9 @@ public class BookPlay implements Book {
 	//도서전체목록 조회
 	@Override
 	public void showBookInfo() {
+		if(bookList.size() == 0) {
+			System.out.println("등록된 도서가 0권입니다.\n");
+		}
     	for(int i = 0; i < bookList.size(); i++) {
     		System.out.printf("======== %d번째 도서 ========%n", i+1);
 
