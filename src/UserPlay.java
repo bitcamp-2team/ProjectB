@@ -185,10 +185,14 @@ public class UserPlay implements User {
 	@Override
 	public void logIn() {
 		int countFaile = 0;
+
 		do {
-			System.out.print(" ID >> ");
+			System.out.println("ID를 입력해주세요.(0:뒤로가기)");
+			System.out.print(PROMPT);
 			String inputId = sc.next();
 			boolean idFlag = false;
+
+			if (inputId.equals("0")) {return;}
 			for (UserVo data : userList) {
 				if ((data.getId().equals(inputId))) { // id가 있으면
 					idFlag = true;
@@ -201,11 +205,14 @@ public class UserPlay implements User {
 				continue;
 			}
 
-			System.out.print("PW >> ");
+			System.out.println("PW를 입력해주세요.(0:뒤로가기)");
+			System.out.print(PROMPT);
 			String inputPw = sc.next();
 
+			if (inputPw.equals("0")) {return;}
 			if (logInUser.getPw().equals(inputPw)) {
 				System.out.println(SUCCESS + "로그인 성공~!!");
+				Main.logInMenu();
 				break;
 			} else {
 				System.out.println(FAILE + "비밀번호가 일치하지 않습니다.");
@@ -263,13 +270,14 @@ public class UserPlay implements User {
 	public void logOut() {
 		do {
 			System.out.println("로그아웃 하시겠습니까?[Y/N]");
-			System.out.print(">> ");
+			System.out.print(PROMPT);
 			String input = sc.next();
-			if (input.equalsIgnoreCase("y")) {
+			if(input.equalsIgnoreCase("y")) {
 				System.out.println(SUCCESS + "로그아웃 되었습니다.");
 				logInUser = null;
-				return;
-			} else if (input.equalsIgnoreCase("n")) {
+				Main.membersMenu();
+				break;
+			}else if(input.equalsIgnoreCase("n")) {
 				return;
 			}
 		} while (true);
@@ -280,47 +288,45 @@ public class UserPlay implements User {
 	public void withdrawal() {
 		System.out.println("회원탈퇴를 하시겠습니까?[Y/N]");
 		System.out.println(PROMPT);
-		if ("Y".equalsIgnoreCase(sc.next())) { // Y입력시 do
+		if("Y".equalsIgnoreCase(sc.next())) { // Y입력시 do
 			do {
-				System.out.println("비밀번호를 입력하세요.(0.뒤로가기)");
+				System.out.println("비밀번호를 입력하세요.(0:뒤로가기)");
 				System.out.println(PROMPT);
 				String input = sc.next();
-				if (input.equals("0")) {
-					break;
-				} // 0. 뒤로가기
-				if (input.equals(logInUser.getPw())) { // 입력 비번과 로그인 유저의 비번확인
+				if(input.equals("0")) {return;} //0. 뒤로가기
+				if(input.equals(logInUser.getPw())) {  //입력 비번과 로그인 유저의 비번확인
 					for (UserVo checkId : userList) {
-						if (checkId.getId().equals(logInUser.getId())) {
+						if(checkId.getId().equals(logInUser.getId())) {
 							userList.remove(checkId);
 							System.out.println("탈퇴되었습니다. 감사합니다.");
-							Main.membersMenu(); // 1이면 membersMenu메뉴로 이동
+							Main.membersMenu(); // 탈퇴 후 membersMenu메뉴로 이동
+							break;
 						}
 					}
 				} else {
 					System.out.println("비밀번호가 틀렸습니다.");
-				}
-			} while (true);
-		} // Y입력시 종료
-		return; // -1이면 myPage메뉴로 이동
-	}// withdrawal 메서드 종료
+				}	
+			} while(true);
+		}// Y입력시 종료
+		else return;  //myPage로 되돌아가기
+	}//withdrawal 메서드 종료
 
 	public void managerLogin() {
 		Scanner sc = new Scanner(System.in);
-		int secret = 1234; // 사서 보안코드
-
-		System.out.println("\n사서 로그인");
-
-		System.out.println("사서 보안코드 4자리를 입력하세요.");
-		if (secret != sc.nextInt()) {
-			System.out.println("코드가 일치하지 않아 프로그램을 종료합니다.");
-			sc.close();
-			System.exit(0);
-		} else {
-			/*
-			 * 사서 메뉴 출력
-			 */
-		}
-
-	} // 사서 로그인 끝
+		String managerCode = "1234"; //사서 보안코드
+		do {
+			System.out.println("\n사서 로그인");
+			System.out.println("사서 보안코드 4자리를 입력하세요.(0:뒤로가기)");
+			String input = sc.next();
+			if (input.equals("0")) {return;}
+			if (input.equals(managerCode)) {
+				System.out.println("로그인 성공");
+				Main.managerMenu();
+				break;
+			} else {
+				System.out.println("코드가 일치하지 않습니다.");
+			}
+		} while(true);
+	} //사서 로그인 끝
 }// UserPlay class 끝
 
