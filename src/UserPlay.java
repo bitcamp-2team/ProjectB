@@ -20,6 +20,9 @@ public class UserPlay implements User {
 	
 	static UserVo logInUser = null;
 	
+	public ArrayList<UserVo> getList() {
+        return UserPlay.userList;
+    }
 	
 	public static void adminUser() {
 		UserVo adminUser = new UserVo("admin", "1234", "admin", "010-1234-1234"); //관리자 계정
