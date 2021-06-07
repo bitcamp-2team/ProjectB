@@ -1,11 +1,17 @@
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.text.SimpleDateFormat;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.Calendar;
+
+
 
 public class UserPlay implements User {
 
@@ -21,6 +27,12 @@ public class UserPlay implements User {
 	static ArrayList<UserVo> userList = new ArrayList<>(); // 유저 리스트
 
 	static UserVo logInUser = null;
+
+	
+	public ArrayList<UserVo> getList() {
+        return UserPlay.userList;
+    }
+	
 
 	public static void adminUser() {
 		UserVo adminUser = new UserVo("admin", "1234", "admin", "010-1234-1234"); // 관리자 계정
@@ -266,6 +278,8 @@ public class UserPlay implements User {
 		}
 	}
 
+	
+	
 	@Override
 	public void logOut() {
 		do {

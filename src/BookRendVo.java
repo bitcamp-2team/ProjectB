@@ -1,6 +1,5 @@
 
 public class BookRendVo {
-
 	/*
 	 @Param
 	  책의 등록번호, 대출자 번호, 대출일, 반납일,  책 상태, 반납상태(보류), 연체일수  
@@ -74,3 +73,4 @@ public class BookRendVo {
 	
 	
 }
+
