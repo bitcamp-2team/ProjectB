@@ -1,4 +1,7 @@
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.text.SimpleDateFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,37 +12,40 @@ import java.util.concurrent.TimeUnit;
 import java.util.Calendar;
 
 
+
 public class UserPlay implements User {
 
-	 static int userCount = 0;
-	 final String SYSTEM = "[SYSTEM] ";
-	 final String SUCCESS = "[성공] ";
-	 final String FAILE = "[실패] ";
-	 final String MENU="[MENU]"; // 메뉴 앞에
-	 final String PROMPT=">>"; 
+	static int userCount = 0;
+	final String SYSTEM = "[SYSTEM] ";
+	final String SUCCESS = "[성공] ";
+	final String FAILE = "[실패] ";
+	final String MENU = "[MENU]"; // 메뉴 앞에
+	final String PROMPT = ">>";
 
 	Scanner sc = new Scanner(System.in);
 
 	static ArrayList<UserVo> userList = new ArrayList<>(); // 유저 리스트
-	
+
 	static UserVo logInUser = null;
+
 	
 	public ArrayList<UserVo> getList() {
         return UserPlay.userList;
     }
 	
+
 	public static void adminUser() {
-		UserVo adminUser = new UserVo("admin", "1234", "admin", "010-1234-1234"); //관리자 계정
+		UserVo adminUser = new UserVo("admin", "1234", "admin", "010-1234-1234"); // 관리자 계정
 		userList.add(adminUser);
 	}
-	
+
 	public UserPlay() {
 		adminUser();
 	}
-	
+
 	@Override
 	public void join() {
-		UserVo paper = new UserVo();  //회원가입 작성지
+		UserVo paper = new UserVo(); // 회원가입 작성지
 
 		if (infoID(paper) == -1) { // ID등록을 진행하고 0입력시 종료
 			return; // 정상등록시 다음 메서드 진행됨
@@ -106,7 +112,7 @@ public class UserPlay implements User {
 				break;
 			}
 		} while (true);
-	}//infoPw 메서드 끝
+	}// infoPw 메서드 끝
 
 	private void infoCheckPw(UserVo inputInfo) {
 		do { // pw 확인
@@ -131,8 +137,8 @@ public class UserPlay implements User {
 				}
 			}
 		} while (true);
-	}//infoCheckPw 메서드 끝
-	
+	}// infoCheckPw 메서드 끝
+
 	public boolean checkPw(String pw) {
 		char[] specialChar = pw.toCharArray();
 		for (int i = 0; i < specialChar.length; i++) {
@@ -141,7 +147,7 @@ public class UserPlay implements User {
 			}
 		}
 		return false;
-	} //checkPw 메서드 끝
+	} // checkPw 메서드 끝
 
 	private int infoName(UserVo inputInfo) {
 		System.out.println("[Step.4]이름을 입력해주세요.(0.메뉴로 돌아가기)");
@@ -170,10 +176,9 @@ public class UserPlay implements User {
 			System.out.println(SUCCESS + "★★ 축하합니다. 회원가입이 완료되었습니다.  ★★");
 			return 1;
 		}
-	}//infoPhoneNum 메서드끝
+	}// infoPhoneNum 메서드끝
 
-	
-	/**---------------------자동가입 방지 추가 사항 ----------------------------- */
+	/** ---------------------자동가입 방지 추가 사항 ----------------------------- */
 	public void dependAutoSignUp() {
 		System.out.println("[자동가입 방지]아래 숫자와 동일하게 입력하세요.");
 		do {
@@ -187,15 +192,19 @@ public class UserPlay implements User {
 				System.out.println(FAILE + "불일치합니다. 다시 시도하세요.");
 			}
 		} while (true);
-	}//dependAutoSignUp 메서드 끝
+	}// dependAutoSignUp 메서드 끝
 
 	@Override
 	public void logIn() {
 		int countFaile = 0;
+
 		do {
-			System.out.print(" ID >> ");
+			System.out.println("ID를 입력해주세요.(0:뒤로가기)");
+			System.out.print(PROMPT);
 			String inputId = sc.next();
 			boolean idFlag = false;
+
+			if (inputId.equals("0")) {return;}
 			for (UserVo data : userList) {
 				if ((data.getId().equals(inputId))) { // id가 있으면
 					idFlag = true;
@@ -208,11 +217,14 @@ public class UserPlay implements User {
 				continue;
 			}
 
-			System.out.print("PW >> ");
+			System.out.println("PW를 입력해주세요.(0:뒤로가기)");
+			System.out.print(PROMPT);
 			String inputPw = sc.next();
 
+			if (inputPw.equals("0")) {return;}
 			if (logInUser.getPw().equals(inputPw)) {
 				System.out.println(SUCCESS + "로그인 성공~!!");
+				Main.logInMenu();
 				break;
 			} else {
 				System.out.println(FAILE + "비밀번호가 일치하지 않습니다.");
@@ -239,7 +251,6 @@ public class UserPlay implements User {
 
 		} while (true);
 	}
-
 
 	@Override
 	public void viewRentalBooks() {
@@ -273,19 +284,19 @@ public class UserPlay implements User {
 	public void logOut() {
 		do {
 			System.out.println("로그아웃 하시겠습니까?[Y/N]");
-			System.out.print(">> ");
+			System.out.print(PROMPT);
 			String input = sc.next();
 			if(input.equalsIgnoreCase("y")) {
 				System.out.println(SUCCESS + "로그아웃 되었습니다.");
 				logInUser = null;
-				return;
+				Main.membersMenu();
+				break;
 			}else if(input.equalsIgnoreCase("n")) {
 				return;
 			}
 		} while (true);
 
 	}
-	
 
 	@Override
 	public void withdrawal() {
@@ -293,44 +304,43 @@ public class UserPlay implements User {
 		System.out.println(PROMPT);
 		if("Y".equalsIgnoreCase(sc.next())) { // Y입력시 do
 			do {
-				System.out.println("비밀번호를 입력하세요.(0.뒤로가기)");
+				System.out.println("비밀번호를 입력하세요.(0:뒤로가기)");
 				System.out.println(PROMPT);
 				String input = sc.next();
-				if(input.equals("0")) {break;} //0. 뒤로가기
+				if(input.equals("0")) {return;} //0. 뒤로가기
 				if(input.equals(logInUser.getPw())) {  //입력 비번과 로그인 유저의 비번확인
 					for (UserVo checkId : userList) {
 						if(checkId.getId().equals(logInUser.getId())) {
 							userList.remove(checkId);
 							System.out.println("탈퇴되었습니다. 감사합니다.");
-							Main.membersMenu(); // 1이면 membersMenu메뉴로 이동
+							Main.membersMenu(); // 탈퇴 후 membersMenu메뉴로 이동
+							break;
 						}
 					}
-				}else {
+				} else {
 					System.out.println("비밀번호가 틀렸습니다.");
 				}	
-			}while(true);
+			} while(true);
 		}// Y입력시 종료
-		return;  //-1이면 myPage메뉴로 이동
+		else return;  //myPage로 되돌아가기
 	}//withdrawal 메서드 종료
-	
-	
+
 	public void managerLogin() {
 		Scanner sc = new Scanner(System.in);
-		int secret = 1234; // 사서 보안코드
-
-		System.out.println("\n사서 로그인");
-		
-			
-
-			System.out.println("사서 보안코드 4자리를 입력하세요.");
-			if (secret != sc.nextInt()) {
-				System.out.println("코드가 일치하지 않아 프로그램을 종료합니다.");
-				sc.close();
-				System.exit(0);
+		String managerCode = "1234"; //사서 보안코드
+		do {
+			System.out.println("\n사서 로그인");
+			System.out.println("사서 보안코드 4자리를 입력하세요.(0:뒤로가기)");
+			String input = sc.next();
+			if (input.equals("0")) {return;}
+			if (input.equals(managerCode)) {
+				System.out.println("로그인 성공");
+				Main.managerMenu();
+				break;
 			} else {
-				/*사서 메뉴 출력
-				*/
+				System.out.println("코드가 일치하지 않습니다.");
 			}
-	
+		} while(true);
 	} //사서 로그인 끝
-}//UserPlay class 끝 
+}// UserPlay class 끝
+
