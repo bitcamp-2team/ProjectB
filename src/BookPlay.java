@@ -368,6 +368,9 @@ public class BookPlay implements Book {
 		      System.out.print("반납할 책 번호를 입력하세요 : ");
 		      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
 		      int idx = findListIndex(bNum);
+		      if (bNum.equals("0")) {
+					return;
+					}
 		      System.out.print("대여자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
 		      String userId = sc.nextLine();
 		      
