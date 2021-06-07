@@ -239,6 +239,7 @@ public class UserPlay implements User {
 
 	@Override
 	public void viewRentalBooks() {
+		
 	}
 	
 	@Override

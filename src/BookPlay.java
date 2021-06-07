@@ -154,7 +154,7 @@ public class BookPlay implements Book {
 	//도서 등록
 	@Override
 	public void addBook() {
-		
+		// ArrayList<BookVo> bookList = new ArrayList<>(); 
 		while (true) {
 			System.out.println("<<도서 등록>>");
             System.out.println("책 제목 :");
@@ -331,8 +331,10 @@ public class BookPlay implements Book {
 	           else {
 	            if (bookList.get(idx).isLoaned()) {
 	             System.out.println("대여중입니다.");}
+	           
 	      else {
 	       System.out.println("대여완료");
+	         
 	      // 매개변수로 받은 대출할 도서의 번호, 사용자ID, 오늘 날짜로 BookRendVo 객체를 만든다.
 	      BookRendVo bookRendVo = new BookRendVo(bNum, userId, df.format(cal.getTime()));
 	      
@@ -349,6 +351,7 @@ public class BookPlay implements Book {
 	    }
 	}
 	
+	      
 	@Override
 	public void backBook() {
 
@@ -361,12 +364,12 @@ public class BookPlay implements Book {
 		      int idx = findListIndex(bNum);
 		      if (bNum.equals("0")) {
 					return;
-					}
+		      }
 		      System.out.print("반납자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
 		      String userId = sc.nextLine();
 		      
-		      if (idx == -1)
-		            System.out.println("등록되지 않은 번호입니다.");
+		      if (idx == -1) {
+		            System.out.println("등록되지 않은 번호입니다.");}
 		          
 		      else {
 		       System.out.println("반납완료");
@@ -374,9 +377,9 @@ public class BookPlay implements Book {
 		       
 		       BookRendVo bookRendVo = new BookRendVo(bNum, userId, df.format(cal.getTime()));
 		       rendBooks.remove(bookRendVo);
+		       bookList.get(idx).setLoaned(false);
 		        }
 		    }
-
 	
 	 public int findListIndex(String id) {
 	  for (int i = 0; i < bookList.size(); i++) {
