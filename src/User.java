@@ -8,6 +8,7 @@ public interface User {
 	void join();
 	
 	
+	
 	/** 2.로그인 */  //하  //형태
 	void logIn();
 	
