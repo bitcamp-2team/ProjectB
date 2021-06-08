@@ -363,7 +363,7 @@ public class BookPlay implements Book {
 	        System.out.println("<<도서 삭제 >>");
 	        System.out.println("[제목으로 삭제]1 / [도서 번호로 삭제]2 / [돌아가기] 0");
 	        int sel = sc.nextInt();
-	        
+	        System.out.println("gg");
 	        
 	        switch(sel) {
 	        case 1:
