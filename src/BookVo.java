@@ -14,6 +14,7 @@ public class BookVo {
 	   return false;}
 		 }
 	
+	
 	public BookVo(String bTitle, int bNum, String bAuthor, String bPublisher, int stock) {
 
 		super();

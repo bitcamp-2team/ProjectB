@@ -16,6 +16,7 @@ public class BookPlay implements Book {
 
 	
 
+  
 
 	Scanner sc = new Scanner(System.in);
 	int num = 0;		//도서 번호

@@ -11,6 +11,7 @@ public class Main {
 	static UserPlay userPlay = new UserPlay();
 	static BookPlay bookPlay = new BookPlay();
 
+	
 	public static void main(String[] args) { //초기화면 출력 
 		beginningPage();
 	} //main method(초기화면) 종료

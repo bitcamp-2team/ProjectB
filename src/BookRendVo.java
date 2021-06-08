@@ -15,6 +15,7 @@ public class BookRendVo {
 	public BookRendVo() {}
 
 	
+	
 	public BookRendVo(String bNum, String userId, String rendBookDate) {
 		this.bNum = bNum;
 		this.userId = userId;

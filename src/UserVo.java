@@ -7,6 +7,7 @@ public class UserVo {
 	
 	
 	
+	
 	/** 생성자 알맞게 수정하세요*/
 	public UserVo(String id, String pw, String name, String phoneNum) {
 		super();
