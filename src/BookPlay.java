@@ -7,12 +7,15 @@ import java.util.Scanner;
 
 public class BookPlay implements Book {
 
-	final String SUCCESS = "[일치하는도서 출력]";
-	final String FAIL = "일치하는 도서가 없습니다. 다시 입력해주세요.\n";
+	final String SUCCESS = "일치하는도서를 출력합니다.";
+	final String FAIL = "일치하는 도서가 없습니다. 다시 입력해주세요.";
 	final String EMPTY = "등록된 도서가 없습니다.";
 	final String MENU = "\n<<<도서검색 메뉴입니다.>>>"; 
-	final String BACK = "[뒤로가기 성공]";
-	BookVo bookVo = new BookVo();
+  final String BACK = "[뒤로가기 성공]";
+  BookVo bookVo = new BookVo();
+
+	
+
 
 	Scanner sc = new Scanner(System.in);
 	int num = 0;		//도서 번호
@@ -20,12 +23,13 @@ public class BookPlay implements Book {
 	static ArrayList<BookVo> bookList = new ArrayList<>(); 
 	static ArrayList<BookRendVo> rendBooks = new ArrayList<BookRendVo>();
 	 
+
 	// 도서검색 메뉴
 	@Override
 	public void searchMenu() {	
 			outer:
 			while(true) {
-				System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 0.뒤로가기");
+				System.out.println(MENU + "\n1.제목검색 2.저자검색 3.번호검색 4.출판사검색 5.뒤로가기");
 				String menu = sc.next();
 				switch(menu) {
 					case "1":
@@ -40,12 +44,12 @@ public class BookPlay implements Book {
 					case "4":
 						searchForPublisher();	// 도서출판사검색 메서드	
 						break;
-					case "0":
+					case "5":
 						System.out.println(BACK);
 						break outer;
 					default:
 						System.out.println("[메뉴에 있는 번호를 입력해주세요.]");
-						continue;				// searchMenu() 처음으로
+						break;					// searchMenu() 처음으로
 				}	// switch문 종료
 			}	// while문 종료
 	}	// searchMenu() 종료
@@ -55,7 +59,7 @@ public class BookPlay implements Book {
 	public void searchForName() {
 		outer:
 		do {
-			System.out.print("[도서제목으로 검색](뒤로가기 : 0)\n제목 입력 : ");
+			System.out.print("[도서제목으로 검색] (뒤로가기 : 0)\n제목 입력 : ");
 			String BookTitle = sc.next();	
 			
 			if(BookTitle.equalsIgnoreCase("0")) {
@@ -64,23 +68,20 @@ public class BookPlay implements Book {
 			}	
 			
 			if(bookList.size() == 0) {
-				System.out.println("현재 등록된 도서가 없습니다. 등록하시겠습니까?");
-				while(true) {
-					System.out.println("1.네 0.뒤로가기");
-					String menu = sc.next();
-					switch(menu) {
-						case "1":
-							addBook();
-						case "0":
-							System.out.println(BACK);
-							break outer;
-						default:
-							System.out.println("[메뉴에 있는 번호를 입력하세요.]");
-							continue;
-					}	// switch문 종료
-				}	// while문 종료
+				System.out.println("현재 등록된 도서가 없습니다. 등록하시겠습니까? \n1.네 0.뒤로가기");
+				String menu = sc.next();
+				switch(menu) {
+					case "1":
+						addBook();
+					case "0":
+						System.out.println(BACK);
+						break outer;
+					default:
+						System.out.println("[잘못 입력하셨습니다.]\n[검색메뉴로 돌아갑니다.]");
+						break outer;
+				}	// switch문 종료
 			}	// if문 종료
-			
+		
 			for(int i = 0; i < bookList.size(); i++) {
 				BookVo a = bookList.get(i);
 				String num = a.getbTitle(); 
@@ -114,27 +115,24 @@ public class BookPlay implements Book {
 				int BookNum = sc.nextInt();
 				if(BookNum == 0) {
 					System.out.println(BACK);
-					break;
+					break outer;
 				}
         
 				if(bookList.size() == 0) { 
-					System.out.println("[현재 등록된 도서가 없습니다. 등록하시겠습니까?]");
-					while(true) {
-						System.out.println("[1.네 0.뒤로가기]");
-						String menu = sc.next();
-						switch(menu) {
-							case "1":
-								addBook();
-							case "0":
-								System.out.println(BACK);
-								break outer;
-							default:
-								System.out.println("[메뉴에 있는 번호를 입력하세요.]");
-								continue;
-						}	// switch문 종료
-					}	// while문 종료
+					System.out.println("[현재 등록된 도서가 없습니다. 등록하시겠습니까?]\n[1.네 2.아니오]");
+					String menu = sc.next();
+					switch(menu) {
+						case "1":
+							addBook();
+						case "0":
+							System.out.println(BACK);
+							break outer;
+						default:
+							System.out.println("[잘못 입력하셨습니다.]\n[검색메뉴로 돌아갑니다.]");
+							break outer;
+					}	// switch문 종료
 				}	// if문 종료
-					
+				
 				for(int i = 0; i < bookList.size(); i++) {
 					BookVo a = bookList.get(i);
 					int num = a.getbNum();
@@ -144,14 +142,13 @@ public class BookPlay implements Book {
 						System.out.println("저자 : " + a.getbAuthor());
 						System.out.println("출판사 : " + a.getbPublisher());
 						System.out.println("번호 : " + a.getbNum());
-						System.out.println("재고 : " + a.getbStock() + "\n");
-						break;
-					} else if(i == bookList.size()-1) {
+						System.out.println("재고 : " + a.getbStock());
+					} else {
 						System.out.println(FAIL);
-						continue outer;
+						break;
 					}
 				}	// for문 종료	
-			} while(true);	
+			} while(true);	// do-while문 종료
 	}	// searchForNum() 종료
 			
 	// 도서저자로 검색
@@ -168,39 +165,35 @@ public class BookPlay implements Book {
 			}
 			
 			if(bookList.size() == 0) {
-				System.out.println("현재 등록된 도서가 없습니다. 등록하시겠습니까?");
-				while(true) {
-					System.out.println("1.네 0.뒤로가기");
-					String menu = sc.next();
-					switch(menu) {
-						case "1":
-							addBook();
-						case "0":
-							System.out.println(BACK);
-							break outer;
-						default:
-							System.out.println("[메뉴에 있는 번호를 입력하세요.]");
-							continue;
-					}	// switch문 종료
-				}	// while문 종료
+				System.out.println("현재 등록된 도서가 없습니다. 등록하시겠습니까? \n1.네 0.뒤로가기");
+				String menu = sc.next();
+				switch(menu) {
+					case "1":
+						addBook();
+					case "0":
+						System.out.println(BACK);
+						break outer;
+					default:
+						System.out.println("[잘못 입력하셨습니다.]\n[검색메뉴로 돌아갑니다.]");
+						break outer;
+				}	// switch문 종료
 			}	// if문 종료
 			
 			for(int i = 0; i < bookList.size(); i++) {
 				BookVo a = bookList.get(i);
-				String num = a.getbAuthor(); 
-				if(BookAuthor.equalsIgnoreCase(num)) {
+				if(BookAuthor.equalsIgnoreCase(a.getbAuthor())) {
 					System.out.printf("======== %d번째 도서 ========%n", i+1);
 					System.out.println("제목 : " + a.getbTitle());
 					System.out.println("저자 : " + a.getbAuthor());
 					System.out.println("출판사 : " + a.getbPublisher());
 					System.out.println("번호 : " + a.getbNum());
-					System.out.println("재고 : " + a.getbStock() + "\n");
+					System.out.println("재고 : " + a.getbStock());
 				} else {
 					System.out.println(FAIL);
 					break;
-				}	// if문 종료
+				}
 		}	// for문 종료
-		} while(true);
+		} while(true); // do-while문 종료
 	}	// searchForAuthor() 종료
 	
 	// 도서출판사로 검색
@@ -217,39 +210,35 @@ public class BookPlay implements Book {
 			}
 			
 			if(bookList.size() == 0) {
-				System.out.println("현재 등록된 도서가 없습니다. 등록하시겠습니까?");
-				while(true) {
-					System.out.println("1.네 0.뒤로가기");
-					String menu = sc.next();
-					switch(menu) {
-						case "1":
-							addBook();
-						case "0":
-							System.out.println(BACK);
-							break outer;
-						default:
-							System.out.println("[메뉴에 있는 번호를 입력하세요.]");
-							continue;
-					}	// switch문 종료
-				}	// while문 종료
+				System.out.println("현재 등록된 도서가 없습니다. 등록하시겠습니까? \n1.네 0.뒤로가기");
+				String menu = sc.next();
+				switch(menu) {
+					case "1":
+						addBook();
+					case "0":
+						System.out.println(BACK);
+						break outer;
+					default:
+						System.out.println("[잘못 입력하셨습니다.]\n[검색메뉴로 돌아갑니다.]");
+						break outer;
+				}	// switch문 종료
 			}	// if문 종료
-		
+			
 			for(int i = 0; i < bookList.size(); i++) {
 				BookVo a = bookList.get(i);
-				String num = a.getbPublisher();
-	        	if(BookPublisher.equalsIgnoreCase(num)) {
+	        	if(BookPublisher.equalsIgnoreCase(a.getbPublisher())) {
 	        		System.out.printf("======== %d번째 도서 ========%n", i+1);
 	            	System.out.println("제목 : " + a.getbTitle());
 	            	System.out.println("출판사 : " + a.getbPublisher());
 	            	System.out.println("저자 : " + a.getbAuthor());
 	            	System.out.println("번호 : " + a.getbNum());
-	            	System.out.println("재고 : " + a.getbStock() + "\n");
+	            	System.out.println("재고 : " + a.getbStock());
 	        	} else {
 	        		System.out.println(FAIL);
 	        		break;
-	        	}	// if문 종료
+	        	}
 			}	// for문 종료
-		} while(true);	
+		} while(true);
 	}	// searchForPublisher() 종료
 	
 	//도서전체목록 조회
@@ -258,24 +247,21 @@ public class BookPlay implements Book {
 		outer:
 		do {
 			if(bookList.size() == 0) {
-				System.out.println("[등록된 도서가 0권입니다. 등록하시겠습니까?]");
-				while(true) {
-					System.out.println("[1.네 0.뒤로가기]");
-					String menu = sc.next();
-					switch(menu) {
-						case "1":
-							addBook();
-							break outer;
-						case "0":
-							System.out.println(BACK + "\n");
-							break outer;
-						default:
-							System.out.println("[메뉴에 있는 숫자를 입력해주세요.]");
-							continue;
-					}	// switch문 종료
-				}	// while문 종료
+				System.out.println("[등록된 도서가 0권입니다. 등록하시겠습니까?]\n[1.네 0.뒤로가기]");
+				String menu = sc.next();
+				switch(menu) {
+				case "1":
+					addBook();
+					break outer;
+				case "0":
+					System.out.println(BACK);
+					break outer;
+				default:
+					System.out.println("[잘못 입력하셨습니다.]\n[메인메뉴로 돌아갑니다.]");
+					break outer;
+				}	// switch문 종료
 			}	// if문 종료
-
+			
 			for(int i = 0; i < bookList.size(); i++) {
 				System.out.printf("======== %d번째 도서 ========%n", i+1);
 				BookVo a = bookList.get(i);
@@ -284,15 +270,13 @@ public class BookPlay implements Book {
 				System.out.println("저자 : " + a.getbAuthor());
 				System.out.println("번호 : " + a.getbNum());
         		System.out.println("재고 : " + a.getbStock() + "\n");
-        		continue;
+        		break outer;
 			}	// for문 종료
-				break;
-		} while(true);	
-	}	// showBookInfo() 종료
-	
+		} while(true);	// do-while문 종료
+	}
 	//도서 등록
-	@Override
-	public void addBook() {
+		@Override
+		public void addBook() {
 			
 			while (true) {
 				BookVo bookVo = new BookVo();
@@ -348,7 +332,8 @@ public class BookPlay implements Book {
 	            }// end while
 	       } 
 		
-	private boolean findTitle(String title) {	//중복된 도서가 있는지 확인
+
+		private boolean findTitle(String title) {	//중복된 도서가 있는지 확인
 			for (int i = 0; i < bookList.size(); i++) {
 				   if (bookList.get(i).getbTitle().equals(title))
 				    return true;
@@ -357,9 +342,9 @@ public class BookPlay implements Book {
 			}
 
 
-	/**도서 삭제 */
-	@Override
-	public void deleteBook() {	
+		/**도서 삭제 */
+		@Override
+		public void deleteBook() {	
 	        System.out.println("<<도서 삭제 >>");
 	        System.out.println("[제목으로 삭제]1 / [도서 번호로 삭제]2 / [돌아가기] 0");
 	        int sel = sc.nextInt();
@@ -380,8 +365,8 @@ public class BookPlay implements Book {
 	        }	
 		}
 		
-	/**도서 번호 이용한 도서 삭제 */
-	private void deleteNum() {
+		/**도서 번호 이용한 도서 삭제 */
+		private void deleteNum() {
 			 int num;
 			 while (true) {
 			        sc.nextLine();
@@ -421,9 +406,8 @@ public class BookPlay implements Book {
 		            }
 		        } // end while
 		}
-		
-	/**도서 제목 이용한 도서 삭제 */
-	private void deleteTitle() {
+		/**도서 제목 이용한 도서 삭제 */
+		private void deleteTitle() {
 			String name;
 			 while (true) {
 			        sc.nextLine();
@@ -465,34 +449,43 @@ public class BookPlay implements Book {
 		}
 	
 	@Override
-	public void rendBook() {
-	      BookRendVo userid = new BookRendVo();
-	      
+	 public void rendBook() {
+	     
 	      Scanner sc = new Scanner(System.in);
 	      Calendar cal =Calendar.getInstance();
 	      SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	      
-	      System.out.print("대여할 책 번호를 입력하세요 : (0.돌아가기)");
+	      System.out.print("대여할 책 번호를 입력하세요 : (0.뒤로가기)");
 	      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
 	      int idx = findListIndex(bNum);
 	      
 	      if (bNum.equals("0")) {
-				System.out.println("돌아가기 성공");
+				System.out.println("뒤로 가기 성공");
 				return;
 				}  //0 누르면 되돌아가기
-	      
-	      System.out.print("대여자 ID를 입력하세요 : (0.돌아가기)"); // 사서로부터 UserId 입력 받기
-	      String userId = sc.next();
-	      userid.getUserId();
-	      
-	      if (userId.equals("0")) {
-				System.out.println("돌아가기 성공");
-				return;
-				}
+	     
+	      String userId;
+	      outer: do {
+	    	 boolean idFlag = false;
+	    	 System.out.print("대여자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
+	    	 userId = sc.next();
+	    	 
+	    	 for (UserVo data : UserPlay.userList) {
+	    		 if ((data.getId().equals(userId))) { // id가 있으면
+	    			 idFlag = true;
+	    			 break outer;
+	    		 }
+	    	 }
+	    	 if (idFlag == false) { // id가 없으면
+	    		 System.out.println("없는 ID입니다.");
+	    		 continue;
+	    	 }
+	     }while(true);
+	        	  
 	      if (idx == -1)
 	            System.out.println("등록되지 않은 책번호입니다.");
-	           
-	      else if (bookList.get(idx).isLoaned()) {
+	           else {
+	            if (bookList.get(idx).isLoaned()) {
 	             System.out.println("대여중입니다.");}
 	           
 	      else {
@@ -514,28 +507,27 @@ public class BookPlay implements Book {
 	    }
 	}
 	  
+
 	@Override
 	public void backBook() {
+		 BookRendVo userid = new BookRendVo();
 		 
 		 Scanner sc = new Scanner(System.in);
 			Calendar cal =Calendar.getInstance();
 		     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		     
-		      System.out.print("반납할 책 번호를 입력하세요 : (0.돌아가기)");
+		      System.out.print("반납할 책 번호를 입력하세요 : (0.뒤로가기)");
 		      String bNum = sc.nextLine(); // 사서로부터 책번호 입력 받기
 		      int idx = findListIndex(bNum);
 		      
 		      if (bNum.equals("0")) {  //0누르면 되돌아가기
-					System.out.println("돌아가기 성공");
+					System.out.println("뒤로 가기 성공");
 		    	  return;}
 		      
-		      System.out.print("반납자 ID를 입력하세요 : (0.돌아가기)"); // 사서로부터 UserId 입력 받기
+		      System.out.print("반납자 ID를 입력하세요 : "); // 사서로부터 UserId 입력 받기
 		      String userId = sc.nextLine();
 		      userid.getUserId();
 		      
-		      if (userId.equals("0")) {  //0누르면 되돌아가기
-					System.out.println("돌아가기 성공");
-		    	  return;}
 		      if (idx == -1) {
 		            System.out.println("등록되지 않은 번호입니다.");}
 		          
@@ -547,16 +539,16 @@ public class BookPlay implements Book {
 		       rendBooks.remove(bookRendVo);
 		       bookList.get(idx).setLoaned(false);
 		        }
-		      }
+		    }
 	
-	 public int findListIndex(String id) {
-	  for (int i = 0; i < bookList.size(); i++) {
-	   if (bookList.get(i).equals(id)){
-	    return i;
-  }
-	  }
-	  return -1;
-	 }
+	public int findListIndex(String id) {
+		for (int i = 0; i < bookList.size(); i++) {
+			if (bookList.get(i).equals(id)){
+				return i;
+			}
+		}
+		return -1;
+	}
 
 
 	 public boolean findId(String id) {
@@ -566,7 +558,7 @@ public class BookPlay implements Book {
 	  }
 	  return false;
 	}
-
+	 
 }
 	
 
