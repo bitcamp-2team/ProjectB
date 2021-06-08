@@ -247,19 +247,23 @@ public class BookPlay implements Book {
 		outer:
 		do {
 			if(bookList.size() == 0) {
-				System.out.println("[등록된 도서가 0권입니다. 등록하시겠습니까?]\n[1.네 0.뒤로가기]");
-				String menu = sc.next();
-				switch(menu) {
-				case "1":
-					addBook();
-					break outer;
-				case "0":
-					System.out.println(BACK);
-					break outer;
-				default:
-					System.out.println("[잘못 입력하셨습니다.]\n[메인메뉴로 돌아갑니다.]");
-					break outer;
-				}	// switch문 종료
+				System.out.println("[등록된 도서가 0권입니다. 등록하시겠습니까?]");
+				while(true) {
+					System.out.println("[1.네 0.뒤로가기]");
+					String menu = sc.next();
+					switch(menu) {
+						case "1":
+							addBook();
+							break outer;
+						case "0":
+							System.out.println(BACK + "\n");
+							break outer;
+						default:
+							System.out.println("[메뉴에있는 숫자를 입력해주세요.]");
+							continue;
+					}	// switch문 종료
+				}	// while문 종료
+
 			}	// if문 종료
 			
 			for(int i = 0; i < bookList.size(); i++) {
