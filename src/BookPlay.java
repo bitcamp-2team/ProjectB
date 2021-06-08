@@ -270,7 +270,7 @@ public class BookPlay implements Book {
 							System.out.println(BACK + "\n");
 							break outer;
 						default:
-							System.out.println("[메뉴에 있는 숫자를 입력해주세요.]");
+							System.out.println("[메뉴에있는 숫자를 입력해주세요.]");
 							continue;
 					}	// switch문 종료
 				}	// while문 종료
