@@ -371,7 +371,17 @@ public class BookPlay implements Book {
 			 while (true) {
 			        sc.nextLine();
 		            System.out.println("삭제 할 도서 번호를 입력해주세요");
+		            System.out.println("[돌아가기] 0");
 		            num = sc.nextInt();
+		            if( num == 0) {
+		            	break;
+		            }else {
+		            while (!sc.hasNextInt()) { 					//값이 숫자인지 판별
+		                sc.next();  							//값이 숫자가 아니면 버린다.
+		                System.err.print("숫자만 입력해주세요. \n다시입력 도서 번호: ");
+		            }
+		            bookVo.setbStock(num);				//위에서 값이 숫자일 경우 이쪽으로 값을 넣어준다.
+		            }
 		            int cnt = 0;
 		            for (int i = 0; i < bookList.size(); i++) {
 		                if (num == bookList.get(i).getbNum()) {
