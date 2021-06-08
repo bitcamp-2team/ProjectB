@@ -438,7 +438,6 @@ public class BookPlay implements Book {
 			 while (true) {
 			        sc.nextLine();
 		            System.out.println("삭제 할 도서 제목을 입력해주세요");
-		            System.out.println("[돌아가기] 0");		            
 		            name = sc.nextLine();
 		            int cnt = 0;
 		            for (int i = 0; i < bookList.size(); i++) {
